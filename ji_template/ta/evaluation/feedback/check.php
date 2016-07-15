@@ -55,7 +55,7 @@
 
 				<?php foreach (array_slice($feedback->replys, 1) as $reply): ?>
 					<?php /** @var $reply Feedback_reply_obj */ ?>
-					<div class="row">
+					<div class="row coversation">
 						<ul class="list-group <?php echo strlen($reply->picture) >
 						                                 0 ? 'col-sm-8' : ''; ?>">
 							<li class="list-group-item _1"><?php echo $this->Mta_feedback->get_reply_title($reply->state); ?></li>
@@ -65,9 +65,43 @@
 									: <?php echo $reply->CREATE_TIMESTAMP; ?></h5>
 							</li>
 						</ul>
+
+						<script type="text/javascript">
+							function DrawImage(MyPic,W,H){
+								var flag=false;
+								var image=new Image();
+								image.src=MyPic.src;
+								if(image.width>0 && image.height>0){
+									flag=true;
+									if(image.width/image.height>= W/H){
+										if(image.width>W){
+											MyPic.width=W;
+											MyPic.height=(image.height*W)/image.width;
+										}
+										else{
+											MyPic.width=image.width;
+											MyPic.height=image.height;
+										}
+									}
+									else{
+										if(image.height>H){
+											MyPic.height=H;
+											MyPic.width=(image.width*H)/image.height;
+										}
+										else{
+											MyPic.width=image.width;
+											MyPic.height=image.height;
+										}
+									}
+								}
+							}
+						</script>
+
+
+
 						<?php if (strlen($reply->picture) > 0): ?>
 							<a href="<?php echo $reply->picture; ?>" class="col-sm-4 swipebox">
-								<img src="<?php echo $reply->picture; ?>" style="width: 100%;">
+								<img src="<?php echo $reply->picture; ?>" onload="javascript:DrawImage(this,200,120);"  width="200" height="120">
 							</a>
 						<?php endif; ?>
 					</div>

@@ -1,7 +1,19 @@
-/*main content part*/
+/*main content part <评教　开启＋关闭>*/
+div.evaluation-list > h4{
+    font-size: 100%;
+}
 
+div.row.evaluation-list-ta{
+    margin: 0;
+}
 
+div.row.evaluation-list-ta > h5{
+    font-size: 90%;
+}
 
+div.row.evaluation-list-ta > h5:first-child{
+    text-align: center;
+}
 
 /*evaluation_ta_list part*/
 div.talist{
@@ -22,7 +34,6 @@ div.row.talist.main > h5.col-sm-1.state{
 }
 
 /*ta evaluation part <评教 开启>*/
-
 
 
 /*ta evaluation part <评教 关闭>*/

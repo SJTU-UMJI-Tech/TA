@@ -17,15 +17,14 @@
 					<h2>Evaluation Questions for <?php echo $this->Mta_site->print_semester();
 						?></h2>
 					<div class="main_question">
-						<h3>I) Choice Questions: (max score is 5 points for each questions)</h3>
+						<h4 class="module_description">I) Choice Questions: (max score is 5 points for each questions)</h4>
 						<br/>
 						<?php foreach ($choice_list as $key => $question): ?>
-							<h4>
+							<h5>
 								&nbsp;&nbsp;<?php echo $key + 1; ?>.&nbsp;
 								<?php echo $question->content; ?>
-							</h4>
-							<br/>
-							<div class="row">
+							</h5>
+							<div class="row multi-choice">
 								<label class="col-sm-2 col-md-1"><input
 											name="c<?php echo $key + 1; ?>" type="radio"
 											value="1"/>1
@@ -47,16 +46,15 @@
 											value="5"/>5
 								</label>
 							</div>
-							<br/>
 						<?php endforeach; ?>
 						<br/>
-						<h3>II) Blank Questions: </h3>
+						<h4 class="module_description">II) Blank Questions: </h4>
 						<br/>
 						<?php foreach ($blank_list as $key => $question): ?>
-							<h4>
+							<h5>
 								&nbsp;&nbsp;<?php echo $key + 1; ?>.&nbsp;
 								<?php echo $question->content; ?>
-							</h4>
+							</h5>
 							<br/>
 							<textarea id="b<?php echo $key + 1; ?>" rows="5"
 							          style="resize:none;width:100%"></textarea>
@@ -65,17 +63,16 @@
 						<br/>
 						<?php if ($type == 'student' && count($course->question_list) > 0): ?>
 							<br/>
-							<h3>III) Additional Questions: </h3>
+							<h4 class="module_description">III) Additional Questions: </h4>
 							<br/>
 							<?php foreach ($course->question_list as $key => $question): ?>
 								<?php /** @var $question Evaluation_question_obj */ ?>
 								<div id="a<?php echo $key + 1; ?>"
 								     class="addition-<?php echo $question->type; ?>">
-									<h4>
+									<h5>
 										&nbsp;&nbsp;<?php echo $key + 1; ?>.&nbsp;
 										<?php echo $question->content; ?>
-									</h4>
-									<br/>
+									</h5>
 									<?php if ($question->type == 'choice'): ?>
 										<div class="row">
 											<label class="col-sm-2 col-md-1">

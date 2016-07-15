@@ -50,6 +50,12 @@ $lang['ta_main_email'] = 'Email';
 $lang['ta_main_report_list'] = 'Report List';
 $lang['ta_main_feedback_list'] = 'Feedback List';
 
+$lang['ta_question_create_by'] = 'Creator';
+$lang['ta_question_last_edit'] = 'Editor';
+$lang['ta_question_edit_name'] = 'Title';
+$lang['ta_question_edit_id'] = 'Edit ID';
+$lang['ta_question_edit_time'] = 'Last Edit Time';
+
 $lang['ta_feedback_state_closed'] = 'Closed';
 $lang['ta_feedback_state_student'] = 'Applying to manage (student)';
 $lang['ta_feedback_state_teacher'] = 'Applying to manage (teacher)';

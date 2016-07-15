@@ -213,9 +213,9 @@
 			{
 				data.height /= ratio;
 				data.width /= ratio;
-				this.$img.cropper("setData", data);
+				//this.$img.cropper("setData", data);
 			}
-			this.$avatar.attr('src', this.$img.cropper("getCroppedCanvas").toDataURL())
+			this.$avatar.attr('src', this.$img.cropper("getCroppedCanvas", data).toDataURL())
 			    .css('height', 'auto').css('width', '100%').css('position', 'absolute');
 			this.$avatarModal.modal('hide');
 		},

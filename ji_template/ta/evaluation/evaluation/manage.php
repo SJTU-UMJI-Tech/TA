@@ -10,14 +10,13 @@
     <div class="maincontent">
         <div class="announcement">
             <h2>Evaluation Setup</h2>
-            <ul>
 	            <a class="btn btn-primary" href="/ta/evaluation/manage/evaluation/edit?type=student">Edit the students' questions</a>
 	            <a class="btn btn-primary" href="/ta/evaluation/manage/evaluation/edit?type=teacher">Edit the teachers' questions</a>
-	            <h4>Once you set the time of evaluation, the current question set will be locked so that you can no longer edit them.</h4>
+	            <h4 class="description">Once you set the time of evaluation, the current question set will be locked so that you can no longer edit them.</h4>
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <h4><?php echo lang('ta_evaluation_time_start'); ?></h4>
+                            <h4 class="description"><?php echo lang('ta_evaluation_time_start'); ?></h4>
                             <div class="input-group date form_datetime" id="datetime-start">
                                 <input type="text" class="form-control" size="16" value="" readonly="readonly"
                                        aria-describedby="basic-addon1" placeholder="Choose a date">
@@ -27,7 +26,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <h4><?php echo lang('ta_evaluation_time_end'); ?></h4>
+                            <h4 class="description"><?php echo lang('ta_evaluation_time_end'); ?></h4>
 
                             <div class="input-group date form_datetime" id="datetime-end">
                                 <input type="text" class="form-control" size="16" value="" readonly="readonly"
@@ -40,7 +39,6 @@
                         <a class="btn btn-primary" id="submit-button"><?php echo lang('ta_main_submit'); ?></a>
                     </div>
                 </div>
-            </ul>
 
             <script type="text/javascript">
                 $(document).ready(function ()

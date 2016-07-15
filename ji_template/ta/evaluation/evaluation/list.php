@@ -40,7 +40,6 @@
 					<?php foreach ($course_list as $course): ?>
 						<?php /** @var $course Course_obj */ ?>
 						<div class="evaluation-list" state="close">
-							<div class="row evaluation-list-course">
 								<h4 class="col-sm-2"><?php echo $course->KCDM; ?></h4>
 								<h4 class="col-sm-6"><?php echo $course->KCZWMC; ?></h4>
 								<h4 class="col-sm-2"><?php echo count($course->ta_list); ?></h4>
@@ -49,27 +48,29 @@
 										<a href="/ta/evaluation/teacher/evaluation/check/<?php
 										echo $course->BSID; ?>">check</a>
 										<?php if (count($course->question_list) < 2 &&
-										          $state == -1
+											$state == -1
 										): ?>
 											| <a href="/ta/evaluation/teacher/evaluation/add/<?php
 											echo $course->BSID; ?>">add question</a>
 										<? endif; ?>
 									<? endif; ?>
+									<?php if ($type == 'student'): ?>
+										<span>check</span>
+									<? endif; ?>
 								</h4>
-							</div>
 							<?php foreach ($course->ta_list as $ta): ?>
 								<?php /** @var $ta Ta_obj */ ?>
 								<div class="row evaluation-list-ta" style="display: none">
-									<h5 class="col-sm-2">+</h5>
+									<h5 class="col-sm-2"><span class="glyphicon glyphicon-tag"></span></h5>
 									<h5 class="col-sm-6"><?php echo $ta->name_ch . '(' .
-									                                $ta->name_en . ')'; ?></h5>
+											$ta->name_en . ')'; ?></h5>
 									<h5 class="col-sm-2"></h5>
 									<h5 class="col-sm-2">
 										<?php if ($type == 'teacher' || $type == 'student'): ?>
 											<?php if ($state == -1): ?>
 												not opened
 											<?php elseif ($state == 0 ||
-											              count($ta->answer_list) > 0
+												count($ta->answer_list) > 0
 											): ?>
 												<a href="/ta/evaluation/<?php
 												echo $type; ?>/evaluation/evaluate/<?php
@@ -81,7 +82,7 @@
 														evaluate
 													<?php else: ?>
 														edit(<?php echo $edit_max -
-														                count($ta->answer_list); ?>
+															count($ta->answer_list); ?>
 														times left)
 													<?php endif; ?>
 												</a>

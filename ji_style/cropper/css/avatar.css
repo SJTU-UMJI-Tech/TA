@@ -1,5 +1,6 @@
 body {
-  background-color: #fcfcfc;
+  /*background-color: #fcfcfc; original color for avatar.css*/
+  background-color: #eee;
 }
 
 .avatar-view {

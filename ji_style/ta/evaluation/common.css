@@ -324,3 +324,16 @@ span.tag{
     color: #002b60;
     box-shadow: 0 0 2px #002b60;
 }
+
+/*Evaluation & Feedback*/
+div.row.coversation{
+    margin: 0 auto;
+}
+
+/*Evaluation questions*/
+div.row.multi-choice{
+    margin: 0 auto;
+}
+h4.module_description{
+    font-size: 110%;
+}

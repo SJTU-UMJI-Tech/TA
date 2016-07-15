@@ -50,6 +50,12 @@ $lang['ta_main_email'] = '邮箱';
 $lang['ta_main_report_list'] = '报告列表';
 $lang['ta_main_feedback_list'] = '投诉列表';
 
+$lang['ta_question_create_by'] = '创建者';
+$lang['ta_question_last_edit'] = '编辑者';
+$lang['ta_question_edit_name'] = '标题';
+$lang['ta_question_edit_id'] = '编辑ID';
+$lang['ta_question_edit_time'] = '最后编辑时间';
+
 $lang['ta_feedback_state_closed'] = '已关闭';
 $lang['ta_feedback_state_student'] = '学生申请中';
 $lang['ta_feedback_state_teacher'] = '教师回复管理员中';

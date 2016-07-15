@@ -35,3 +35,19 @@ div.main_question > h3{
     font-size: 130%;
 }
 
+/*Evaluation check list*/
+div.row.evaluation-list-ta{
+    margin: 0;
+}
+
+div.evaluation-list > h4{
+    font-size: 100%;
+}
+
+div.row.evaluation-list-ta > h5{
+    font-size: 90%;
+}
+
+div.row.evaluation-list-ta > h5:first-child{
+    text-align: center;
+}

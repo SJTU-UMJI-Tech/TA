@@ -118,6 +118,9 @@ class Evaluation_config_obj extends My_obj
 
 	/** @var int    int(11)     评教配置 ID */
 	public $id;
+	public $name;
+	public $CREATER_ID;
+	public $EDITOR_ID;
 	/** @var string varchar(10) 配置类型 */
 	public $type;
 	/** @var int    int(11)     选择题数量 */
@@ -139,7 +142,8 @@ class Evaluation_config_obj extends My_obj
 
 
 	/** -- The vars defined for other uses -- */
-
+	public $creater;
+	public $editor;
 
 	/**
 	 * Evaluation_config_obj constructor.
@@ -148,6 +152,19 @@ class Evaluation_config_obj extends My_obj
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'id');
+		if(!$this->is_error())
+		{
+			$this->CI->load->model('Mmanage');
+			$this->creater=$this->CI->Mmanage->get_manage_by_id($this->CREATER_ID);
+			if($this->CREATER_ID==$this->EDITOR_ID)
+			{
+				$this->editor=$this->creater;
+			}
+			else
+			{
+				$this->editor=$this->CI->Mmanage->get_manage_by_id($this->EDITOR_ID);
+			}
+		}
 	}
 
 }
