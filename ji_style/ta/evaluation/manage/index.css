@@ -3,6 +3,14 @@ h4.description{
     font-size: 100%;
 }
 
+h2#Add_config{
+    border-bottom: none;
+    float: left;
+}
+h3.edit_config{
+    font-size: 150%;
+}
+
 /*feedback close part*/
 
 
@@ -12,6 +20,13 @@ h4.description{
 
 
 /*Search part is here*/
+br.end_label_search{
+    line-height: 190%;
+}
+br.end_label_config{
+    line-height: 10%;
+}
+
 
 /*Search for course*/
 div.row.search_course, div.row.search_ta{

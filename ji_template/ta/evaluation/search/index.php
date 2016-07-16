@@ -73,7 +73,7 @@
 									'#ta-list">', lang_check, '</a></h5>',
 									'<h5 class="col-sm-1 sub xkxs"><a href="', href,
 									'#student-list">', lang_check, '</a></h5>',
-									'<br /><br /><br />'
+									'<br /><br class="end_label_search" />'
 								].join('');
 								$(".search_content_course.list_container").append(html);
 							}
@@ -109,7 +109,7 @@
 									'#course-list">', lang_check, '</a></h5>',
 									'<h5 class="col-sm-1 sub"><a href="', href,
 									'#report-list">', lang_check, '</a></h5>',
-									'<br /><br /><br />'
+                                    '<br /><br class="end_label_search" />'
 								].join('');
 								$(".search_content_ta.list_container").append(html);
 							}
@@ -223,7 +223,6 @@
 				<div id="search_content_display_course" style="display: none;">
 					<div class="row search_course">
 						<h5 class="col-sm-1"><?php echo lang('ta_main_year') . '：' . lang('ta_main_term'); ?></h5>
-						<!--                        <h5 class="col-sm-1">学期</h5>-->
 						<h5 class="col-sm-4"><?php echo lang('ta_main_course_name'); ?></h5>
 						<h5 class="col-sm-1"><?php echo lang('ta_main_course_code'); ?></h5>
 						<h5 class="col-sm-2"><?php echo lang('ta_main_teacher'); ?></h5>

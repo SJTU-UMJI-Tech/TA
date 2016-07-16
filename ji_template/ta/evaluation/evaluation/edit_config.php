@@ -28,19 +28,19 @@
 					</button>
 				<?php endif; ?>
 				
-				<h3>Description:</h3>
+				<h3 class="edit_config">Description:</h3>
 				<input id="description" type="text" name="description" value="<?php echo $config->description; ?>">
 				
-				<h3>Choices:</h3>
+				<h3 class="edit_config">Choices:</h3>
 				<div class="question-list" id="choice-list"></div>
 				<button class="btn btn-primary btn-add" qtype="choice">Add</button>
 				
-				<h3>Blanks:</h3>
+				<h3 class="edit_config">Blanks:</h3>
 				<div class="question-list" id="blank-list"></div>
 				<button class="btn btn-primary btn-add" qtype="blank">Add</button>
 				
 				<?php if ($edit_type == 'student'): ?>
-					<h3>Number of Addition Questions:</h3>
+					<h3 class="edit_config">Number of Addition Questions:</h3>
 					<input id="addition" type="text" name="addition-question" value="<?php echo $config->addition; ?>">
 					
 				<?php endif; ?>

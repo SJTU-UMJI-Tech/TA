@@ -311,8 +311,13 @@ div#return a:hover{
 /*Null part*/
 div.list_container{
     min-height: 500px;
+    max-height: 2500px;
     height: auto;
+    overflow: auto;
     border-bottom: 2px solid #0055BD;
+}
+div.list-container > h5{
+    text-overflow: ellipsis;
 }
 
 /*Tag Style*/
@@ -324,6 +329,7 @@ span.tag{
     color: #002b60;
     box-shadow: 0 0 2px #002b60;
 }
+
 
 /*Evaluation & Feedback*/
 div.row.coversation{

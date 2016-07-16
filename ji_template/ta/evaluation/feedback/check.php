@@ -2,6 +2,42 @@
 <?php include 'button_event.php'; ?>
 	
 	<link rel="stylesheet" href="/ji_style/swipebox/swipebox.min.css">
+	<script type="text/javascript">
+		function DrawImage(MyPic, W, H)
+		{
+			var image = new Image();
+			image.src = MyPic.src;
+			if (image.width > 0 && image.height > 0)
+			{
+				if (image.width / image.height >= W / H)
+				{
+					if (image.width > W)
+					{
+						MyPic.width = W;
+						MyPic.height = (image.height * W) / image.width;
+					}
+					else
+					{
+						MyPic.width = image.width;
+						MyPic.height = image.height;
+					}
+				}
+				else
+				{
+					if (image.height > H)
+					{
+						MyPic.height = H;
+						MyPic.width = (image.width * H) / image.height;
+					}
+					else
+					{
+						MyPic.width = image.width;
+						MyPic.height = image.height;
+					}
+				}
+			}
+		}
+	</script>
 
 <?php /** @var $feedback Feedback_obj */ ?>
 	<!-- The main page content is here -->
@@ -52,69 +88,49 @@
 				<?php if (count($feedback->replys) <= 1): ?>
 					<div><?php echo lang('ta_feedback_empty'); ?></div>
 				<?php endif; ?>
-				
+
+<!--				--><?php //if ($feedback->is_student() && $type == 'student')
+//				: ?>
 				<?php foreach (array_slice($feedback->replys, 1) as $reply): ?>
 					<?php /** @var $reply Feedback_reply_obj */ ?>
 					<div class="row coversation">
-						<ul class="list-group <?php echo strlen($reply->picture) >
-						                                 0 ? 'col-sm-8' : ''; ?>">
-							<li class="list-group-item _1"><?php echo $this->Mta_feedback->get_reply_title($reply->state); ?></li>
-							<li class="list-group-item">
-								<h5><?php echo $reply->content; ?></h5>
-								<h5 class="submit_time"><?php echo lang('ta_main_time_reply'); ?>
-									: <?php echo $reply->CREATE_TIMESTAMP; ?></h5>
-							</li>
-						</ul>
-						
-						<script type="text/javascript">
-							function DrawImage(MyPic, W, H)
-							{
-								var flag = false;
-								var image = new Image();
-								image.src = MyPic.src;
-								if (image.width > 0 && image.height > 0)
-								{
-									flag = true;
-									if (image.width / image.height >= W / H)
-									{
-										if (image.width > W)
-										{
-											MyPic.width = W;
-											MyPic.height = (image.height * W) / image.width;
-										}
-										else
-										{
-											MyPic.width = image.width;
-											MyPic.height = image.height;
-										}
-									}
-									else
-									{
-										if (image.height > H)
-										{
-											MyPic.height = H;
-											MyPic.width = (image.width * H) / image.height;
-										}
-										else
-										{
-											MyPic.width = image.width;
-											MyPic.height = image.height;
-										}
-									}
-								}
-							}
-						</script>
-						
-						
-						<?php if (strlen($reply->picture) > 0): ?>
-							<a href="<?php echo $reply->picture; ?>" class="col-sm-4 swipebox">
-								<img src="<?php echo $reply->picture; ?>" onload="javascript:DrawImage(this,200,120);"
-								     width="200" height="120">
-							</a>
+						<?php if ($this->Mta_feedback->get_reply_title($reply->state) == "From Student to Manage"): ?>
+							<ul class="list-group col-sm-8">
+								<li class="list-group-item _1"><?php echo $this->Mta_feedback->get_reply_title($reply->state); ?></li>
+								<li class="list-group-item">
+									<h5><?php echo $reply->content; ?></h5>
+									<h5 class="submit_time"><?php echo lang('ta_main_time_reply'); ?>
+										: <?php echo $reply->CREATE_TIMESTAMP; ?></h5>
+								</li>
+							</ul>
+							<?php if (strlen($reply->picture) > 0): ?>
+								<a href="<?php echo $reply->picture; ?>" class="col-sm-4 swipebox">
+									<img src="<?php echo $reply->picture; ?>" onload="DrawImage(this,200,120);"
+								     	width="200" height="120">
+								</a>
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php if ($this->Mta_feedback->get_reply_title($reply->state) == "From Manage to Student"): ?>
+							<ul class="list-group col-sm-8" style="float: right;">
+								<li class="list-group-item _1"><?php echo $this->Mta_feedback->get_reply_title($reply->state); ?></li>
+								<li class="list-group-item">
+									<h5><?php echo $reply->content; ?></h5>
+									<h5 class="submit_time"><?php echo lang('ta_main_time_reply'); ?>
+										: <?php echo $reply->CREATE_TIMESTAMP; ?></h5>
+								</li>
+							</ul>
+							<?php if (strlen($reply->picture) > 0): ?>
+								<a href="<?php echo $reply->picture; ?>" class="col-sm-4 swipebox">
+									<img src="<?php echo $reply->picture; ?>" onload="DrawImage(this,200,120);"
+										 width="200" height="120">
+								</a>
+							<?php endif; ?>
 						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
-				
+<!--				--><?php //endif; ?>
+
+
 				<?php if ($feedback->is_open() &&
 				          (($feedback->is_student() && $type == 'student') ||
 				           (!$feedback->is_manage() && $type == 'manage') ||
@@ -126,7 +142,7 @@
 					<div class="row">
 						<div class="col-sm-8">
 							<textarea id="input-content" rows="15"
-							          style="resize:none;width:100%"></textarea>
+							          style="resize:none; width:100%"></textarea>
 						</div>
 						<div class="col-sm-4">
 							<?php include 'upload.php'; ?>
