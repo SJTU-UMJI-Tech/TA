@@ -43,23 +43,23 @@
 					<h4 class="col-sm-3"><?php echo lang('ta_main_time_submit'); ?></h4>
 					<h4 class="col-sm-2"><?php echo lang('ta_main_progress'); ?></h4>
 				</div>
-
-                <div class="row feedback_content list_container">
-                <?php foreach ($list as $feedback): ?>
-					<?php /** @var $feedback Feedback_obj */ ?>
+				
+				<div class="row feedback_content list_container">
+					<?php foreach ($list as $feedback): ?>
+						<?php /** @var $feedback Feedback_obj */ ?>
 						<a class="col-sm-3"
 						   href="/ta/evaluation/<?php echo $type; ?>/feedback/check/<?php echo
-								   $feedback->id . '?page=' .
-								   $page_id; ?>">
+								   $feedback->id . '?page=' . $page_id .
+								   ($type == 'student' ? '' : '&state=' . $state_id); ?>">
 							<h4><?php echo $feedback->title; ?></h4></a>
 						<h4 class="col-sm-2"><?php echo $feedback->course->KCDM; ?></h4>
 						<h4 class="col-sm-2"><?php echo $feedback->ta->name_en; ?></h4>
 						<h4 class="col-sm-3"><?php echo $feedback->CREATE_TIMESTAMP; ?></h4>
 						<h4 class="col-sm-2"><?php echo $feedback->get_state_str(); ?></h4>
-				<?php endforeach; ?>
-                <?php echo '<center><h2 id="page_num">' . $this->pagination->create_links() . '</h2></center>'; ?>
-                </div>
-                <br>
+					<?php endforeach; ?>
+					<?php echo '<center><h2 id="page_num">' . $this->pagination->create_links() . '</h2></center>'; ?>
+				</div>
+				<br>
 				<?php if ($type == 'student'): ?>
 					<a class="btn btn-primary" href="/ta/evaluation/student/feedback/add">Add new feedback</a>
 				<?php endif ?>

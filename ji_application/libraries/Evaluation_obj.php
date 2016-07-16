@@ -4,8 +4,12 @@
  * Class Evaluation_obj
  * virtual class
  */
-class Evaluation_obj
+class Evaluation_obj extends My_obj
 {
+	public function __construct($data = array(), $main = array())
+	{
+		parent::__construct($data, $main);
+	}
 }
 
 /**
@@ -18,7 +22,7 @@ class Evaluation_obj
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
  */
-class Evaluation_question_obj extends My_obj
+class Evaluation_question_obj extends Evaluation_obj
 {
 	/** -- The vars in the table `ji_ta_evaluation_question` -- */
 	
@@ -49,7 +53,7 @@ class Evaluation_question_obj extends My_obj
 			$this->content = base64_decode($this->content);
 		}
 	}
-
+	
 }
 
 /**
@@ -62,7 +66,7 @@ class Evaluation_question_obj extends My_obj
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
  */
-class Evaluation_answer_obj extends My_obj
+class Evaluation_answer_obj extends Evaluation_obj
 {
 	/** -- The vars in the table `ji_ta_evaluation_answer` -- */
 	
@@ -82,7 +86,7 @@ class Evaluation_answer_obj extends My_obj
 	public $CREATE_TIMESTAMP;
 	/** @var string timestamp   修改时间 */
 	public $UPDATE_TIMESTAMP;
-
+	
 	
 	/** -- The vars defined for other uses -- */
 	
@@ -112,13 +116,13 @@ class Evaluation_answer_obj extends My_obj
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
  */
-class Evaluation_config_obj extends My_obj
+class Evaluation_config_obj extends Evaluation_obj
 {
 	/** -- The vars in the table `ji_ta_evaluation_config` -- */
-
+	
 	/** @var int    int(11)     评教配置 ID */
 	public $id;
-	public $name;
+	public $description;
 	public $CREATER_ID;
 	public $EDITOR_ID;
 	/** @var string varchar(10) 配置类型 */
@@ -139,12 +143,12 @@ class Evaluation_config_obj extends My_obj
 	public $CREATE_TIMESTAMP;
 	/** @var string timestamp   修改时间 */
 	public $UPDATE_TIMESTAMP;
-
-
+	
+	
 	/** -- The vars defined for other uses -- */
 	public $creater;
 	public $editor;
-
+	
 	/**
 	 * Evaluation_config_obj constructor.
 	 * @param array $data
@@ -152,21 +156,21 @@ class Evaluation_config_obj extends My_obj
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'id');
-		if(!$this->is_error())
+		if (!$this->is_error())
 		{
 			$this->CI->load->model('Mmanage');
-			$this->creater=$this->CI->Mmanage->get_manage_by_id($this->CREATER_ID);
-			if($this->CREATER_ID==$this->EDITOR_ID)
+			$this->creater = $this->CI->Mmanage->get_manage_by_id($this->CREATER_ID);
+			if ($this->CREATER_ID == $this->EDITOR_ID)
 			{
-				$this->editor=$this->creater;
+				$this->editor = $this->creater;
 			}
 			else
 			{
-				$this->editor=$this->CI->Mmanage->get_manage_by_id($this->EDITOR_ID);
+				$this->editor = $this->CI->Mmanage->get_manage_by_id($this->EDITOR_ID);
 			}
 		}
 	}
-
+	
 }
 
 
@@ -180,10 +184,10 @@ class Evaluation_config_obj extends My_obj
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
  */
-class Evaluation_default_obj extends My_obj
+class Evaluation_default_obj extends Evaluation_obj
 {
 	/** -- The vars in the table `ji_ta_evaluation_config` -- */
-
+	
 	/** @var int    int(11)     评教问题 ID */
 	public $id;
 	/** @var string varchar(10) 类型(choice/blank) */
@@ -196,11 +200,11 @@ class Evaluation_default_obj extends My_obj
 	public $CREATE_TIMESTAMP;
 	/** @var string timestamp   修改时间 */
 	public $UPDATE_TIMESTAMP;
-
-
+	
+	
 	/** -- The vars defined for other uses -- */
-
-
+	
+	
 	/**
 	 * Evaluation_config_obj constructor.
 	 * @param array $data
@@ -208,14 +212,14 @@ class Evaluation_default_obj extends My_obj
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'id');
-		if (!$this->is_error())
+		/*if (!$this->is_error())
 		{
 			$this->content = base64_decode($this->content);
 		}
 		else
 		{
 			$this->content = '';
-		}
+		}*/
 	}
-
+	
 }

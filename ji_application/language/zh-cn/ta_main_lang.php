@@ -50,11 +50,19 @@ $lang['ta_main_email'] = '邮箱';
 $lang['ta_main_report_list'] = '报告列表';
 $lang['ta_main_feedback_list'] = '投诉列表';
 
+$lang['ta_question_edit_id'] = '编辑ID';
 $lang['ta_question_create_by'] = '创建者';
 $lang['ta_question_last_edit'] = '编辑者';
 $lang['ta_question_edit_name'] = '标题';
-$lang['ta_question_edit_id'] = '编辑ID';
 $lang['ta_question_edit_time'] = '最后编辑时间';
+$lang['ta_question_status'] = '状态';
+$lang['ta_question_confirm_delete'] = '确定要删除吗？';
+$lang['ta_question_confirm_lock'] = '确定要锁定吗？';
+$lang['ta_question_explain_lock'] ='锁定后无法再次编辑该设置';
+$lang['ta_question_confirm_modify'] = '确定要修改吗？';
+$lang['ta_question_explain_modify'] ='将创建一份相同的配置';
+$lang['ta_question_explain_modify_question'] ='将创建一个相同的问题';
+
 
 $lang['ta_feedback_state_closed'] = '已关闭';
 $lang['ta_feedback_state_student'] = '学生申请中';

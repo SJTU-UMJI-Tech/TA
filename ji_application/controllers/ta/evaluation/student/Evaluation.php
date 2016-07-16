@@ -114,7 +114,7 @@ class Evaluation extends TA_Controller
 		}
 		$data['course']->set_question();
 		$config = $this->Mta_evaluation->get_evaluation_config($this->data['type']);
-		$default = $this->Mta_evaluation->get_question($config);
+		$default = $this->Mta_evaluation->get_defaults($config);
 		$data['choice_list'] = $default['choice'];
 		$data['blank_list'] = $default['blank'];
 		$this->load->view('ta/evaluation/evaluation/evaluation', $data);

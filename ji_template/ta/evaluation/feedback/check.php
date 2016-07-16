@@ -1,6 +1,6 @@
 <?php include dirname(dirname(__FILE__)) . '/common_header.php'; ?>
 <?php include 'button_event.php'; ?>
-
+	
 	<link rel="stylesheet" href="/ji_style/swipebox/swipebox.min.css">
 
 <?php /** @var $feedback Feedback_obj */ ?>
@@ -19,9 +19,9 @@
 						<button id="close-button" type="button" class="btn btn-warning">Close
 						</button>
 					<?php endif; ?>
-					<div id="return">
-						<a><span class="glyphicon glyphicon-repeat" aria-hidden="true"
-						         title="Return"></span></a>
+					<div id="return" url="<?php echo '/view'.($type == 'student' ? '' : '/' . $state_id) . '/' .
+					                                 $page_id ?>" back="2">
+						<a><span class="glyphicon glyphicon-repeat" aria-hidden="true" title="Return"></span></a>
 					</div>
 				</h2>
 				<?php echo 'state: ' . $feedback->state; ?>
@@ -46,13 +46,13 @@
 								class="submit_time"><?php echo $feedback->CREATE_TIMESTAMP; ?></h5>
 					</div>
 				</div>
-
+				
 				<p><?php echo lang('ta_feedback_communication'); ?>:</p>
-
+				
 				<?php if (count($feedback->replys) <= 1): ?>
 					<div><?php echo lang('ta_feedback_empty'); ?></div>
 				<?php endif; ?>
-
+				
 				<?php foreach (array_slice($feedback->replys, 1) as $reply): ?>
 					<?php /** @var $reply Feedback_reply_obj */ ?>
 					<div class="row coversation">
@@ -65,48 +65,56 @@
 									: <?php echo $reply->CREATE_TIMESTAMP; ?></h5>
 							</li>
 						</ul>
-
+						
 						<script type="text/javascript">
-							function DrawImage(MyPic,W,H){
-								var flag=false;
-								var image=new Image();
-								image.src=MyPic.src;
-								if(image.width>0 && image.height>0){
-									flag=true;
-									if(image.width/image.height>= W/H){
-										if(image.width>W){
-											MyPic.width=W;
-											MyPic.height=(image.height*W)/image.width;
+							function DrawImage(MyPic, W, H)
+							{
+								var flag = false;
+								var image = new Image();
+								image.src = MyPic.src;
+								if (image.width > 0 && image.height > 0)
+								{
+									flag = true;
+									if (image.width / image.height >= W / H)
+									{
+										if (image.width > W)
+										{
+											MyPic.width = W;
+											MyPic.height = (image.height * W) / image.width;
 										}
-										else{
-											MyPic.width=image.width;
-											MyPic.height=image.height;
+										else
+										{
+											MyPic.width = image.width;
+											MyPic.height = image.height;
 										}
 									}
-									else{
-										if(image.height>H){
-											MyPic.height=H;
-											MyPic.width=(image.width*H)/image.height;
+									else
+									{
+										if (image.height > H)
+										{
+											MyPic.height = H;
+											MyPic.width = (image.width * H) / image.height;
 										}
-										else{
-											MyPic.width=image.width;
-											MyPic.height=image.height;
+										else
+										{
+											MyPic.width = image.width;
+											MyPic.height = image.height;
 										}
 									}
 								}
 							}
 						</script>
-
-
-
+						
+						
 						<?php if (strlen($reply->picture) > 0): ?>
 							<a href="<?php echo $reply->picture; ?>" class="col-sm-4 swipebox">
-								<img src="<?php echo $reply->picture; ?>" onload="javascript:DrawImage(this,200,120);"  width="200" height="120">
+								<img src="<?php echo $reply->picture; ?>" onload="javascript:DrawImage(this,200,120);"
+								     width="200" height="120">
 							</a>
 						<?php endif; ?>
 					</div>
 				<?php endforeach; ?>
-
+				
 				<?php if ($feedback->is_open() &&
 				          (($feedback->is_student() && $type == 'student') ||
 				           (!$feedback->is_manage() && $type == 'manage') ||
@@ -138,7 +146,7 @@
 					<?php endif; ?>
 					<br>
 					<button id="reply-button" class="btn btn-primary">Submit</button>
-
+				
 				<?php endif; ?>
 			</div>
 		</div>

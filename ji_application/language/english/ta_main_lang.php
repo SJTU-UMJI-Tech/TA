@@ -50,11 +50,19 @@ $lang['ta_main_email'] = 'Email';
 $lang['ta_main_report_list'] = 'Report List';
 $lang['ta_main_feedback_list'] = 'Feedback List';
 
-$lang['ta_question_create_by'] = 'Creator';
+$lang['ta_question_create_by'] = 'Creater';
 $lang['ta_question_last_edit'] = 'Editor';
 $lang['ta_question_edit_name'] = 'Title';
 $lang['ta_question_edit_id'] = 'Edit ID';
 $lang['ta_question_edit_time'] = 'Last Edit Time';
+$lang['ta_question_status'] = 'Status';
+$lang['ta_question_confirm_delete'] = 'Are you sure to delete it?';
+$lang['ta_question_confirm_lock'] = 'Are you sure to lock it?';
+$lang['ta_question_explain_lock'] ='The config can\'t be edited after it was locked';
+$lang['ta_question_confirm_modify'] = 'Are you sure to modify it?';
+$lang['ta_question_explain_modify'] ='You will create a new config and discard the previous one';
+$lang['ta_question_explain_modify_question'] ='You will create a new question and discard the previous one';
+
 
 $lang['ta_feedback_state_closed'] = 'Closed';
 $lang['ta_feedback_state_student'] = 'Applying to manage (student)';
