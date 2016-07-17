@@ -38,7 +38,7 @@ class Feedback_obj extends My_obj
 	public $UPDATE_TIMESTAMP;
 	
 	/** -- The vars defined for other uses -- */
-
+	
 	/** @var Ta_obj */
 	public $ta;
 	/** @var Course_obj */
@@ -56,7 +56,7 @@ class Feedback_obj extends My_obj
 	const STATE_TEACHER       = 0x04;
 	const STATE_NOT_PROCESSED = 0x00;
 	const STATE_PROCESSED     = 0x08;
-
+	
 	/**
 	 * Feedback_obj constructor.
 	 * @param array $data
@@ -123,6 +123,15 @@ class Feedback_obj extends My_obj
 	{
 		$state == NULL ? $state = $this->state : NULL;
 		return $state == ($state | $this::STATE_PROCESSED);
+	}
+	
+	
+	public function is_type($type, $state = NULL)
+	{
+		return ($this->is_student($state) && $type == 'student') ||
+		       (!$this->is_manage($state) && $type == 'manage') ||
+		       ($this->is_teacher($state) && $this->is_manage($state) &&
+		        $type == 'teacher');
 	}
 	
 	/**
@@ -216,5 +225,5 @@ class Feedback_obj extends My_obj
 		$this->state |= $alter;
 		return $this;
 	}
-
+	
 }

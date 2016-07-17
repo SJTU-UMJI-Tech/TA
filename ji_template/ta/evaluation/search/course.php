@@ -8,11 +8,11 @@
 			<h2 id="title">
 				Course Description >
 				<?php echo $course->KCDM; ?>
-				<div id="return">
+				<div id="return" <?php echo $return; ?>>
 					<a><span class="glyphicon glyphicon-repeat" aria-hidden="true" title="Return"></span></a>
 				</div>
 			</h2>
-
+			
 			<!--			Course information-->
 			<h4 class="title_course">
 				<?php echo lang('ta_main_course_info'); ?>
@@ -41,7 +41,7 @@
 					<?php echo $course->XM; ?>
 				</h5>
 			</div>
-
+			
 			<br>
 			<!--			Feedback part-->
 			<h4 class="title_course">
@@ -60,31 +60,34 @@
 					</div>
 				<?php endforeach; ?>
 			</div>
-
-            <br>
+			
+			<br>
 			<!--			TA list part-->
 			<h4 class="title_course">
 				<?php echo lang('ta_main_ta_list'); ?>
 			</h4>
-			<div id="ta-list" class="ta_list">
+			<div id="ta-list" class="ta_list row">
 				<?php foreach ($course->ta_list as $ta): ?>
 					<?php /** @var $ta Ta_obj */ ?>
-					<?php echo $ta->name_ch; ?>
+					<a href="/ta/evaluation/manage/search/ta/<?php echo $ta->USER_ID . '?type=' . $target . '&key=' .
+					                                                    $key; ?>">
+						<?php echo '<h5 class="col-sm-2">' . $ta->name_ch . '</h5>'; ?>
+					</a>
 				<?php endforeach; ?>
 			</div>
-
-            <br>
+			
+			<br>
 			<!--			Student list taking this course-->
 			<h4 class="title_course">
 				<?php echo lang('ta_main_student_list'); ?>
 			</h4>
-			<div id="student-list" class="student_list">
+			<div id="student-list" class="student_list row">
 				<?php foreach ($course->student_list as $student): ?>
 					<?php /** @var $student Student_obj */ ?>
-					<?php echo '<h4 class="col-sm-2">'.$student->student_name.'</h4>'; ?>
+					<?php echo '<h5 class="col-sm-2">' . $student->student_name . '</h5>'; ?>
 				<?php endforeach; ?>
 			</div>
-
+		
 		</div>
 	</div>
 </div>

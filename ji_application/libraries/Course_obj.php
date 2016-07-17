@@ -1,5 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Course_obj
+ *
+ * The operations of courses
+ *
+ * @category   ta
+ * @package    ta/evaluation
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mcourse
+ */
 class Course_obj extends My_obj
 {
 	/** -- The vars in the table `ji_course_open` -- */
@@ -43,7 +54,12 @@ class Course_obj extends My_obj
 	public $question_list;
 	/** @var array */
 	public $answer_list;
-
+	
+	
+	/**
+	 * Course_obj constructor.
+	 * @param array $data
+	 */
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'BSID');
@@ -61,34 +77,54 @@ class Course_obj extends My_obj
 		}
 	}
 	
+	/**
+	 * Set the TAs in the course
+	 * @return $this
+	 */
 	public function set_ta()
 	{
 		$this->CI->load->model('Mcourse');
 		$this->ta_list = $this->CI->Mcourse->get_course_ta($this->BSID);
 		return $this;
 	}
-
+	
+	/**
+	 * Set the students in the course
+	 * @return $this
+	 */
 	public function set_student()
 	{
 		$this->CI->load->model('Mcourse');
 		$this->student_list = $this->CI->Mcourse->get_course_student($this->BSID);
 		return $this;
 	}
-
+	
+	/**
+	 * Set the feedbacks in the course
+	 * @return $this
+	 */
 	public function set_feedback()
 	{
 		$this->CI->load->model('Mcourse');
 		$this->feedback_list = $this->CI->Mcourse->get_course_feedback($this->BSID);
 		return $this;
 	}
-
+	
+	/**
+	 * Set the additional evaluation questions in the course
+	 * @return $this
+	 */
 	public function set_question()
 	{
 		$this->CI->load->model('Mcourse');
 		$this->question_list = $this->CI->Mcourse->get_course_question($this->BSID);
 		return $this;
 	}
-
+	
+	/**
+	 * Set the evaluation answers in the course
+	 * @return $this
+	 */
 	public function set_answer()
 	{
 		$this->CI->load->model('Mcourse');

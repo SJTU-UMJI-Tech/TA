@@ -1,5 +1,17 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Mcourse
+ *
+ * @category   common
+ * @package    common
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mta
+ * @uses       Mstudent
+ * @uses       Mta_evaluation
+ * @uses       Feedback_obj
+ */
 class Mcourse extends CI_Model
 {
 	/**
@@ -10,8 +22,9 @@ class Mcourse extends CI_Model
 		parent::__construct();
 		$this->load->library('Course_obj');
 	}
-
+	
 	/**
+	 * 使用 ID 获取课程
 	 * @param int $BSID
 	 * @return Course_obj
 	 */
@@ -21,8 +34,9 @@ class Mcourse extends CI_Model
 		$course = new Course_obj($query->row(0));
 		return $course;
 	}
-
+	
 	/**
+	 * 获取当前课程
 	 * @param array  $value
 	 * @param string $key
 	 * @return array
@@ -41,9 +55,10 @@ class Mcourse extends CI_Model
 		$query = $this->db->select('*')->from('ji_course_open')->where(array(
 			                                                               'XQ'   => $this->Mta_site->site_config['ji_academic_term'],
 			                                                               'XN'   => $this->Mta_site->site_config['ji_academic_year'],
-			                                                               'SCBJ' => 'N'))
+			                                                               'SCBJ' => 'N'
+		                                                               ))
 		                  ->where_in($key, $value)->get();
-
+		
 		foreach ($query->result() as $row)
 		{
 			$course = new Course_obj($row);
@@ -54,8 +69,9 @@ class Mcourse extends CI_Model
 		}
 		return $course_list;
 	}
-
+	
 	/**
+	 * 获取课程 TA
 	 * @param int $BSID
 	 * @return array
 	 */
@@ -64,7 +80,8 @@ class Mcourse extends CI_Model
 		$this->load->model('Mta');
 		$query = $this->db->select('USER_ID')->from('ji_course_ta')->where(array(
 			                                                                   'BSID' => $BSID,
-			                                                                   'SCBJ' => 'N'))
+			                                                                   'SCBJ' => 'N'
+		                                                                   ))
 		                  ->get();
 		$user_list = array();
 		foreach ($query->result() as $user)
@@ -74,8 +91,9 @@ class Mcourse extends CI_Model
 		$ta_list = $this->Mta->get_ta_by_id($user_list);
 		return $ta_list;
 	}
-
+	
 	/**
+	 * 获取课程投诉
 	 * @param int $BSID
 	 * @return array
 	 */
@@ -95,8 +113,9 @@ class Mcourse extends CI_Model
 		}
 		return $feedback_list;
 	}
-
+	
 	/**
+	 * 获取课程学生
 	 * @param int $BSID
 	 * @return array
 	 */
@@ -105,7 +124,8 @@ class Mcourse extends CI_Model
 		$this->load->model('Mstudent');
 		$query = $this->db->select('USER_ID')->from('ji_course_select')->where(array(
 			                                                                       'BSID' => $BSID,
-			                                                                       'SCBJ' => 'N'))
+			                                                                       'SCBJ' => 'N'
+		                                                                       ))
 		                  ->get();
 		$user_list = array();
 		foreach ($query->result() as $user)
@@ -123,8 +143,21 @@ class Mcourse extends CI_Model
 		}
 		return $student_list;
 	}
-
+	
+	public function get_course_teacher($BSID)
+	{
+		$this->load->model('Mteacher');
+		$course = $this->get_course_by_id($BSID);
+		if ($course->is_error())
+		{
+			return new Teacher_obj();
+		}
+		$teacher = $this->Mteacher->get_teacher_by_id($course->XGH);
+		return $teacher;
+	}
+	
 	/**
+	 * 获取课程附加问题
 	 * @param int $BSID
 	 * @return array
 	 */
@@ -143,12 +176,17 @@ class Mcourse extends CI_Model
 		}
 		return $question_list;
 	}
-
+	
+	/**
+	 * 获取课程评教答案
+	 * @param int $BSID
+	 * @return array
+	 */
 	public function get_course_answer($BSID)
 	{
 		$this->load->model('Mta_evaluation');
 		$answer_list = $this->Mta_evaluation->get_answer($BSID, $_SESSION['userid']);
 		return $answer_list;
 	}
-
+	
 }

@@ -2,14 +2,14 @@
 	<style>
 		.text-match { background-color: #ffff00; }
 	</style>
-
+	
 	<script type="text/javascript">
 		$(document).ready(function ()
 		{
 			var search_item = 'course';
 			var search_lock = new Date().getTime();
 			var lang_check = '<?php echo lang('ta_main_check');?>';
-
+			
 			$(document).keydown(function (e)
 			{
 				var event = document.all ? window.event : e;
@@ -18,7 +18,7 @@
 					$(".btn.btn-info").click();
 				}
 			});
-
+			
 			$.extend(
 					{
 						key_to_reg: function (key)
@@ -42,7 +42,7 @@
 							}
 							return new RegExp('(' + keys.join('|') + ')', 'gi');
 						},
-
+						
 						course_append: function (data, key)
 						{
 							var course_list = JSON.parse(data);
@@ -59,7 +59,7 @@
 									}
 								}
 								var href = '/ta/evaluation/manage/search/course/' +
-								           course_list[index].BSID;
+								           course_list[index].BSID + '?type=course&key=' + $("#search").val();
 								var html = [
 									'<h5 class="col-sm-1 sub xnxq"><a href="', href, '">',
 									course.XN, ': ', course.XQ_JI, '</a></h5>',
@@ -93,7 +93,8 @@
 										                       .replace($.key_to_reg(key), '<span class="text-match">$1</span>');
 									}
 								}
-								var href = '/ta/evaluation/manage/search/ta/' + ta_list[index].USER_ID;
+								var href = '/ta/evaluation/manage/search/ta/' + ta_list[index].USER_ID +
+								           '?type=ta&key=' + $("#search").val();
 								var html = [
 									'<h5 class="col-sm-2 sub user_id"><a href="', href, '">',
 									ta.USER_ID, '</a></h5>',
@@ -109,7 +110,7 @@
 									'#course-list">', lang_check, '</a></h5>',
 									'<h5 class="col-sm-1 sub"><a href="', href,
 									'#report-list">', lang_check, '</a></h5>',
-                                    '<br /><br class="end_label_search" />'
+									'<br /><br class="end_label_search" />'
 								].join('');
 								$(".search_content_ta.list_container").append(html);
 							}
@@ -177,11 +178,34 @@
 				$.ajax_search('ta', 1, $.ta_append);
 				search_item = 'ta';
 			});
-			$("#search_object").text($("#course_search").text());
-			$("#course_search").hide();
-			$("#search_content_display_course").show();
-			$.ajax_search('course', 1, $.course_append);
-			search_item = 'course';
+			/*$("#search_object").text($("#course_search").text());
+			 $("#course_search").hide();
+			 $("#search_content_display_course").show();
+			 $.ajax_search('course', 1, $.course_append);
+			 search_item = 'course';*/
+			
+			$("#search").val('<?php echo $key;?>');
+			if ('<?php echo $target;?>' == 'ta')
+			{
+				$("#search_object").text($("#ta_search").text());
+				$("#ta_search").hide();
+				$("#course_search").show();
+				$("#search_content_display_course").hide();
+				$("#search_content_display_ta").show();
+				$.ajax_search('ta', 1, $.ta_append);
+				search_item = 'ta';
+			}
+			else
+			{
+				$("#search_object").text($("#course_search").text());
+				$("#course_search").hide();
+				$("#ta_search").show();
+				$("#search_content_display_ta").hide();
+				$("#search_content_display_course").show();
+				$.ajax_search('course', 1, $.course_append);
+				search_item = 'course';
+			}
+			
 		});
 	
 	</script>
@@ -210,7 +234,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="search"
 							       placeholder="Search">
-                            <span class="input-group-btn">
+							<span class="input-group-btn">
                                 <button class="btn btn-info" id="enter" type="submit">
 	                                <span class="glyphicon glyphicon-search"></span>
                                 </button>
@@ -230,7 +254,7 @@
 						<h5 class="col-sm-1"><?php echo lang('ta_main_student_list'); ?></h5>
 					</div>
 					<div class="search_content_course list_container">
-
+					
 					</div>
 				</div>
 				
@@ -246,7 +270,7 @@
 						<h5 class="col-sm-1"><?php echo lang('ta_main_report_list'); ?></h5>
 					</div>
 					<div class="search_content_ta list_container">
-
+					
 					</div>
 				</div>
 			

@@ -1,8 +1,21 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Export
+ *
+ * Controller ta/evaluation/manage/export
+ *
+ * @category   ta
+ * @package    ta/evaluation/manage
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       PHPExcel
+ */
 class Export extends TA_Controller
 {
-
+	/**
+	 * Export constructor.
+	 */
     public function __construct()
     {
         parent::__construct();
@@ -11,13 +24,29 @@ class Export extends TA_Controller
         $this->data['banner_id'] = 5;
         $this->Mta_site->redirect_login($this->data['type']);
     }
-
+	
+	/**
+	 * Index page
+	 */
     public function index()
     {
         $data = $this->data;
         $this->load->view('ta/evaluation/report/export', $data);
     }
 
+    public function mail()
+    {
+    	$this->load->model('Mta_mail');
+	    $this->Mta_mail->send('liuyh615@126.com','111','222');
+    }
+    
+    public function mail2($id)
+    {
+	    $this->load->model('Mcourse');
+	    $teacher = $this->Mcourse->get_course_teacher($id);
+	    echo $teacher->user_email;
+    }
+    
     public function test()
     {
         $this->load->library('PHPExcel');

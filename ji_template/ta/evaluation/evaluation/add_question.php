@@ -8,7 +8,7 @@
 			<div class="announcement">
 				<h2>
 					Add question > <?php echo $course->KCDM;?> > <?php echo '#'.(count($course->question_list)+1);?>
-					<div id="return">
+					<div id="return" url="/view" back="2">
 						<a><span class="glyphicon glyphicon-repeat" aria-hidden="true" title="Return"></span></a>
 					</div>
 				</h2>
@@ -57,7 +57,8 @@
 					 data: {
 						 BSID: <?php echo $course->BSID;?>,
 						 type: $("input[name='type']:checked").val(),
-						 content: $("#input-content").val()
+						 content: $("#input-content").val(),
+						 id: 0
 					 },
 					 dataType: 'text',
 					 success: function (data)

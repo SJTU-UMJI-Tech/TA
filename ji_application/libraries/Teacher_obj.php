@@ -1,5 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Teacher_obj
+ *
+ * The operations of teachers
+ *
+ * @category   ta
+ * @package    ta/evaluation
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ */
+
 class Teacher_obj extends My_obj
 {
 	public $user_name;
@@ -20,7 +31,11 @@ class Teacher_obj extends My_obj
 	public $user_skype;
 	public $user_room;
 	public $user_status;
-
+	
+	/**
+	 * Teacher_obj constructor.
+	 * @param array $data
+	 */
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'student_id');

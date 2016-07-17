@@ -7,29 +7,29 @@
 		<div class="announcement">
 			<h2 id="title">
 				TA Description >
-				<?php echo $ta->name_en; ?>
-				<div id="return">
+				<?php echo $ta->get_name(); ?>
+				<div id="return" <?php echo $return; ?>>
 					<a><span class="glyphicon glyphicon-repeat" aria-hidden="true" title="Return"></span></a>
 				</div>
 			</h2>
 
 			<!--			Course information-->
 			<h4 class="title_course">
-                TA Info
+				<?php echo lang('ta_main_ta_info'); ?>
 			</h4>
 			<div class="row course_info">
 				<h5 class="col-sm-2">
-					English Name:
+					<?php echo lang('ta_main_name_en'); ?>
 					<br><br>
-					Name:
+					<?php echo lang('ta_main_name'); ?>
 					<br><br>
-					Gender:
+					<?php echo lang('ta_main_gender'); ?>
 					<br><br>
-					Faculty:
+					<?php echo lang('ta_main_department'); ?>
 					<br><br>
-					Email:
+					<?php echo lang('ta_main_email'); ?>
                     <br><br>
-                    Phone:
+					<?php echo lang('ta_main_phone'); ?>
                     <br><br>
 				</h5>
 				<h5 class="col-sm-5">
@@ -39,7 +39,7 @@
 					<br><br>
 					<?php echo $ta->gender; ?>
 					<br><br>
-					<?php echo $ta->faculty; ?>
+					<?php echo $ta->department; ?>
 					<br><br>
 					<?php echo $ta->email; ?>
                     <br><br>
@@ -50,13 +50,13 @@
 			<br>
 			<!--			Feedback part-->
 			<h4 class="title_course">
-				Course Assisting
+				<?php echo lang('ta_main_ta_course'); ?>
 			</h4>
 			<div id="feedback-list" class="feedback_list">
                 <div class="ta_course_info">
-                    <h5 class="col-sm-2">Course ID</h5>
-                    <h5 class="col-sm-5">Course Name</h5>
-                    <h5 class="col-sm-3">Teacher</h5>
+                    <h5 class="col-sm-2"><?php echo lang('ta_main_course_code'); ?></h5>
+                    <h5 class="col-sm-5"><?php echo lang('ta_main_course_name'); ?></h5>
+                    <h5 class="col-sm-3"><?php echo lang('ta_main_teacher'); ?></h5>
                 <br><br>
 				<?php
                 echo '</div>';
@@ -74,7 +74,7 @@
 			<br>
 			<!--			TA list part-->
 			<h4 class="title_course">
-				Feedback
+				<?php echo lang('ta_main_feedback'); ?>
 			</h4>
 			<div id="ta-list" class="ta_list">
 				<?php
@@ -89,7 +89,7 @@
 			<br>
 			<!--			Student list taking this course-->
 			<h4 class="title_course">
-				Report
+				<?php echo lang('ta_main_report'); ?>
 			</h4>
 			<div id="student-list" class="student_list">
 				<?php

@@ -1,8 +1,22 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Evaluation
+ *
+ * Controller ta/evaluation/teacher/evaluation
+ *
+ * @category   ta
+ * @package    ta/evaluation/teacher
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mteacher
+ * @uses       Mta_evaluation
+ * @uses       Mta
+ * @uses       Mcourse
+ * @uses       Evaluation_obj
+ */
 class Evaluation extends TA_Controller
 {
-	
 	/**
 	 * Evaluation constructor.
 	 */
@@ -20,17 +34,26 @@ class Evaluation extends TA_Controller
 		
 	}
 	
+	/**
+	 * Index page
+	 */
 	public function index()
 	{
 		$data = $this->data;
 		$this->load->view('ta/evaluation/evaluation/manage', $data);
 	}
 	
+	/**
+	 * Redirect to the index page
+	 */
 	private function redirect()
 	{
 		redirect(base_url('ta/evaluation/manage/evaluation'));
 	}
 	
+	/**
+	 * Edit an evaluation config
+	 */
 	public function edit()
 	{
 		$data = $this->data;
@@ -69,6 +92,11 @@ class Evaluation extends TA_Controller
 		$this->load->view('ta/evaluation/evaluation/view_config', $data);
 	}
 	
+	/**
+	 * search evaluation questions through ajax
+	 *
+	 * @echo string result
+	 */
 	public function search_question()
 	{
 		$type = $this->input->get('type');
@@ -86,6 +114,9 @@ class Evaluation extends TA_Controller
 		exit();
 	}
 	
+	/**
+	 * Delete an evaluation config
+	 */
 	public function delete()
 	{
 		$type = $this->input->get('type');
@@ -97,6 +128,9 @@ class Evaluation extends TA_Controller
 		redirect(base_url('ta/evaluation/manage/evaluation/edit?type=' . $type));
 	}
 	
+	/**
+	 * Lock an evaluation config
+	 */
 	public function lock()
 	{
 		$type = $this->input->get('type');
@@ -105,7 +139,11 @@ class Evaluation extends TA_Controller
 		redirect(base_url('ta/evaluation/manage/evaluation/edit?type=' . $type));
 	}
 	
-	
+	/**
+	 * Submit an evaluation config through ajax
+	 *
+	 * @echo string result
+	 */
 	public function submit()
 	{
 		//echo 1;
@@ -152,7 +190,13 @@ class Evaluation extends TA_Controller
 				echo 'config type validation error';
 				exit();
 			}
-			if ($config->state != 0)
+			if ($config->state == 1 && $data->active == 'true')
+			{
+				$this->Mta_evaluation->set_default_config($data->id, $data->type);
+				echo 'success';
+				exit();
+			}
+			else if ($config->state != 0)
 			{
 				echo 'config state validation error';
 				exit();
@@ -203,6 +247,10 @@ class Evaluation extends TA_Controller
 		exit();
 	}
 	
+	/**
+	 * Set the evaluation time
+	 * Automatically lock the current active evaluation config
+	 */
 	public function settime()
 	{
 		$start = $this->input->get('start');

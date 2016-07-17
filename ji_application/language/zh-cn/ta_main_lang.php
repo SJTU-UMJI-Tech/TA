@@ -1,6 +1,6 @@
 <?php
 /**
- * display for ta_feedback
+ * display for ta
  *
  * @author    tc-imba
  */
@@ -12,6 +12,7 @@ $lang['ta_main_homepage'] = '首页';
 $lang['ta_main_evaluation'] = '评教';
 $lang['ta_main_evaluation_setup'] = '评教设置';
 $lang['ta_main_search'] = '搜索';
+$lang['ta_main_feedback'] = '投诉';
 $lang['ta_main_feedback_apply'] = '投诉申请';
 $lang['ta_main_feedback_process'] = '投诉处理';
 $lang['ta_main_export'] = '导出到 Excel';
@@ -30,6 +31,9 @@ $lang['ta_main_student_list'] = '学生列表';
 $lang['ta_main_ta'] = '助教';
 $lang['ta_main_ta_name'] = '助教姓名';
 $lang['ta_main_ta_list'] = '助教列表';
+$lang['ta_main_ta_info'] = '助教信息';
+$lang['ta_main_ta_course'] = '助教课程';
+$lang['ta_main_ta_number'] = '助教数量';
 $lang['ta_main_teacher'] = '老师';
 $lang['ta_main_manage'] = '管理员';
 $lang['ta_main_year'] = "学年";
@@ -37,6 +41,9 @@ $lang['ta_main_term'] = "学期";
 $lang['ta_main_time'] = "时间";
 $lang['ta_main_time_submit'] = "申请时间";
 $lang['ta_main_time_reply'] = "回复时间";
+$lang['ta_main_process'] = '处理';
+
+
 
 $lang['ta_main_submit'] = '提交';
 $lang['ta_main_state'] = '状态';
@@ -45,8 +52,11 @@ $lang['ta_main_check'] = "查看";
 $lang['ta_main_progress'] = '进度';
 $lang['ta_main_name'] = '姓名';
 $lang['ta_main_name_en'] = '英文名';
+$lang['ta_main_gender'] = '性别';
+$lang['ta_main_department'] = '学院';
 $lang['ta_main_contact'] = '联系方式';
 $lang['ta_main_email'] = '邮箱';
+$lang['ta_main_phone'] = '手机';
 $lang['ta_main_report_list'] = '报告列表';
 $lang['ta_main_feedback_list'] = '投诉列表';
 

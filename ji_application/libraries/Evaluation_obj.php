@@ -2,7 +2,13 @@
 
 /**
  * Class Evaluation_obj
+ *
  * virtual class
+ *
+ * @category   ta
+ * @package    ta/evaluation
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
  */
 class Evaluation_obj extends My_obj
 {
@@ -122,8 +128,11 @@ class Evaluation_config_obj extends Evaluation_obj
 	
 	/** @var int    int(11)     评教配置 ID */
 	public $id;
+	/** @var string varchar(50) 描述 */
 	public $description;
+	/** @var int    varchar(50) 创建者 ID */
 	public $CREATER_ID;
+	/** @var int    varchar(50) 编辑者 ID */
 	public $EDITOR_ID;
 	/** @var string varchar(10) 配置类型 */
 	public $type;
@@ -212,14 +221,6 @@ class Evaluation_default_obj extends Evaluation_obj
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'id');
-		/*if (!$this->is_error())
-		{
-			$this->content = base64_decode($this->content);
-		}
-		else
-		{
-			$this->content = '';
-		}*/
 	}
 	
 }
