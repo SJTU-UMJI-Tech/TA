@@ -1,14 +1,30 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Mta_search
+ *
+ * @category   ta
+ * @package    ta/evaluation
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Ta_obj
+ * @uses       Course_obj
+ */
 class Mta_search extends CI_Model
 {
-	
+	/**
+	 * Mta_search constructor.
+	 */
 	function __construct()
 	{
 		parent::__construct();
-		//$this->load->model('Mta_site');
 	}
 	
+	/**
+	 * 搜索 TA
+	 * @param array $keys
+	 * @return array
+	 */
 	public function search_ta($keys)
 	{
 		$this->load->library('Ta_obj');
@@ -27,7 +43,12 @@ class Mta_search extends CI_Model
 		}
 		return $ta_list;
 	}
-
+	
+	/**
+	 * 搜索课程
+	 * @param array $keys
+	 * @return array
+	 */
 	public function search_course($keys)
 	{
 		$this->load->library('Course_obj');

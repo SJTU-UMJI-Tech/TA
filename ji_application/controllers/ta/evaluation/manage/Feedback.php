@@ -1,9 +1,20 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Feedback
+ *
+ * Controller ta/evaluation/manage/feedback
+ *
+ * @category   ta
+ * @package    ta/evaluation/manage
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mmanage
+ * @uses       Mta_feedback
+ * @uses       Feedback_obj
+ */
 class Feedback extends TA_Controller
 {
-
 	/**
 	 * Feedback constructor.
 	 */
@@ -135,7 +146,8 @@ class Feedback extends TA_Controller
 		}
 		else if (!$this->Mta_feedback->examine_content($content))
 		{
-			echo "the content is too short or too long";
+			echo 'The content must be ' . $this->Mta_site->site_config['ta_feedback_content_min'] .
+			     '-' . $this->Mta_site->site_config['ta_feedback_content_max'] . ' letters';
 		}
 		else
 		{

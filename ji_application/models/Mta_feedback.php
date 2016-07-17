@@ -297,6 +297,9 @@ class Mta_feedback extends CI_Model
 					}
 				}
 				/** Mail the teacher */
+				$this->load->model('Mcourse');
+				$teacher = $this->Mcourse->get_course_teacher($feedback->BSID);
+				/** @TODO The format of the email */
 			}
 			else
 			{
@@ -315,6 +318,7 @@ class Mta_feedback extends CI_Model
 					}
 				}
 				/** Mail the student */
+				/** @TODO Don't have the email of the student  */
 			}
 			
 			$reply_data['state'] = Feedback_obj::STATE_CLOSED | Feedback_obj::STATE_MANAGE |

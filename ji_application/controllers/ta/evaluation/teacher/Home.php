@@ -1,9 +1,20 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends TA_Controller 
+/**
+ * Class Home
+ *
+ * Controller ta/evaluation/teacher
+ *
+ * @category   ta
+ * @package    ta/evaluation/teacher
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ */
+class Home extends TA_Controller
 {
-
+	/**
+	 * Home constructor.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,6 +24,9 @@ class Home extends TA_Controller
 		$this->Mta_site->redirect_login($this->data['type']);
 	}
 	
+	/**
+	 * Index page
+	 */
 	public function index()
 	{
 		$data = $this->data;

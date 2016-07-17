@@ -1,5 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Evaluation
+ *
+ * Controller ta/evaluation/manage/evaluation
+ *
+ * @category   ta
+ * @package    ta/evaluation/manage
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mmanage
+ * @uses       Mta_evaluation
+ * @uses       Mta
+ * @uses       Mcourse
+ * @uses       Evaluation_obj
+ */
 class Evaluation extends TA_Controller
 {
 	/**

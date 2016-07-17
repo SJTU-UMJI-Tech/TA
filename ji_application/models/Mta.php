@@ -1,19 +1,30 @@
-<?php if (!defined('BASEPATH'))
-{
-	exit('No direct script access allowed');
-}
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Mta
+ *
+ * @category   common
+ * @package    common
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mcourse
+ * @uses       Mta_evaluation
+ * @uses       Ta_obj
+ * @uses       Feedback_obj
+ */
 class Mta extends CI_Model
 {
-	
+	/**
+	 * Mta constructor.
+	 */
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Mta_site');
 		$this->load->library('Ta_obj');
 	}
-
+	
 	/**
+	 * 使用 ID 获取 TA
 	 * @param int|array $id
 	 * @return Ta_obj|array
 	 */
@@ -41,8 +52,9 @@ class Mta extends CI_Model
 		}
 		return $ta_list;
 	}
-
+	
 	/**
+	 * 获取所有 TA
 	 * @return array
 	 */
 	public function get_all_ta()
@@ -59,7 +71,12 @@ class Mta extends CI_Model
 		}
 		return $ta_list;
 	}
-
+	
+	/**
+	 * 获取 TA 课程
+	 * @param $id
+	 * @return array
+	 */
 	public function get_ta_course($id)
 	{
 		$this->load->model('Mcourse');
@@ -81,7 +98,12 @@ class Mta extends CI_Model
 		}
 		return $list;
 	}
-
+	
+	/**
+	 * 获取 TA 投诉
+	 * @param int $id
+	 * @return array
+	 */
 	public function get_ta_feedback($id)
 	{
 		$this->load->library('Feedback_obj');
@@ -98,19 +120,30 @@ class Mta extends CI_Model
 		}
 		return $feedback_list;
 	}
-
+	
+	/**
+	 * 获取 TA 评教答案
+	 * @param int $id
+	 * @param int $BSID
+	 * @return array
+	 */
 	public function get_ta_answer($id, $BSID)
 	{
 		$this->load->model('Mta_evaluation');
 		$answer_list = $this->Mta_evaluation->get_answer($BSID, $_SESSION['userid'], $id);
 		return $answer_list;
 	}
-
+	
+	/**
+	 * 获取 TA 报告
+	 * @param int $id
+	 * @return array
+	 */
 	public function get_ta_report($id)
 	{
-
+		
 		$report_list = array();
-
+		
 		return $report_list;
 	}
 }

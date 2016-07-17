@@ -1,6 +1,6 @@
 <?php
 /**
- * display for ta_feedback
+ * display for ta
  *
  * @author    tc-imba
  */
@@ -12,6 +12,7 @@ $lang['ta_main_homepage'] = 'Homepage';
 $lang['ta_main_evaluation'] = 'TA Evaluation';
 $lang['ta_main_evaluation_setup'] = 'Evaluation Setup';
 $lang['ta_main_search'] = 'Search';
+$lang['ta_main_feedback'] = 'Feedbacks';
 $lang['ta_main_feedback_apply'] = 'Feedbacks';
 $lang['ta_main_feedback_process'] = 'Feedbacks Process';
 $lang['ta_main_export'] = 'Export';
@@ -30,6 +31,9 @@ $lang['ta_main_student_list'] = 'Student List';
 $lang['ta_main_ta'] = 'TA';
 $lang['ta_main_ta_name'] = 'TA Name';
 $lang['ta_main_ta_list'] = 'TA List';
+$lang['ta_main_ta_info'] = 'TA Info';
+$lang['ta_main_ta_course'] = 'Course Assisting';
+$lang['ta_main_ta_number'] = 'TA Number';
 $lang['ta_main_teacher'] = 'Teacher';
 $lang['ta_main_manage'] = 'Manage';
 $lang['ta_main_year'] = "Year";
@@ -37,6 +41,8 @@ $lang['ta_main_term'] = "Term";
 $lang['ta_main_time'] = "Time";
 $lang['ta_main_time_submit'] = "Submit Time";
 $lang['ta_main_time_reply'] = "Reply Time";
+$lang['ta_main_process'] = 'Process';
+
 
 $lang['ta_main_submit'] = 'Submit';
 $lang['ta_main_state'] = 'State';
@@ -45,8 +51,11 @@ $lang['ta_main_check'] = "Check";
 $lang['ta_main_progress'] = 'Progress';
 $lang['ta_main_name'] = 'Name';
 $lang['ta_main_name_en'] = 'English Name';
+$lang['ta_main_gender'] = 'Gender';
+$lang['ta_main_department'] = 'Department';
 $lang['ta_main_contact'] = 'Contact';
 $lang['ta_main_email'] = 'Email';
+$lang['ta_main_phone'] = 'Phone';
 $lang['ta_main_report_list'] = 'Report List';
 $lang['ta_main_feedback_list'] = 'Feedback List';
 

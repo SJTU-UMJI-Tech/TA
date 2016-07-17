@@ -1,13 +1,21 @@
-<?php if (!defined('BASEPATH'))
-{
-	exit('No direct script access allowed');
-}
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Mta_site
+ *
+ * @category   ta
+ * @package    ta
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ */
 class Mta_site extends CI_Model
 {
-
+	/** @var array */
 	public $site_config;
-
+	
+	/**
+	 * Mta_site constructor.
+	 */
 	function __construct()
 	{
 		parent::__construct();
@@ -16,7 +24,7 @@ class Mta_site extends CI_Model
 
 	/**
 	 * 获取所有的网站设置项
-	 * @return  关联数组
+	 * @return array
 	 */
 	public function get_site_config()
 	{
@@ -56,17 +64,31 @@ class Mta_site extends CI_Model
 		}
 		return $this->db->update_batch('ji_ta_config', $updatedata, 'obj');
 	}
-
+	
+	/**
+	 * 净化 HTML
+	 * @param string $string
+	 * @return string
+	 */
 	public function html_purify($string)
 	{
 		return preg_replace("/<([a-zA-Z]+)[^>]*>/", "", $string);
 	}
-
+	
+	/**
+	 * BASE64 加密 HTML（净化）
+	 * @param string $string
+	 * @return string
+	 */
 	public function html_base64($string)
 	{
 		return base64_encode($this->html_purify($string));
 	}
-
+	
+	/**
+	 * 输出学期名
+	 * @return string
+	 */
 	public function print_semester()
 	{
 		$semester_name = array(
@@ -76,7 +98,11 @@ class Mta_site extends CI_Model
 		return substr($this->site_config['ji_academic_year'], 0, 4) . ' ' .
 		       $semester_name[$this->site_config['ji_um_term']];
 	}
-
+	
+	/**
+	 * 重定向登录
+	 * @param string $type
+	 */
 	public function redirect_login($type)
 	{
 		if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '' )

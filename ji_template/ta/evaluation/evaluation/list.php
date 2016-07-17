@@ -29,12 +29,12 @@
 					</ul>
 				</div>
 
-				<h4>Course List</h4>
+				<h4><?php echo lang('ta_main_course_list'); ?></h4>
 				<div class="row feedback_schema">
-					<h4 class="col-sm-2">Course ID</h4>
-					<h4 class="col-sm-6">Course Name</h4>
-					<h4 class="col-sm-2">TA Number</h4>
-					<h4 class="col-sm-2">Process</h4>
+					<h4 class="col-sm-2"><?php echo lang('ta_main_course_code'); ?></h4>
+					<h4 class="col-sm-6"><?php echo lang('ta_main_course_name'); ?></h4>
+					<h4 class="col-sm-2"><?php echo lang('ta_main_ta_number'); ?></h4>
+					<h4 class="col-sm-2"><?php echo lang('ta_main_process'); ?></h4>
 				</div>
 				<div class="list_container">
 					<?php foreach ($course_list as $course): ?>

@@ -3,6 +3,8 @@
 /**
  * Class Feedback_reply_obj
  *
+ * The operations of feedback replys
+ *
  * @category   ta
  * @package    ta/evaluation
  * @author     tc-imba

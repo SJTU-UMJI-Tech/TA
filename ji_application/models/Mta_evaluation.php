@@ -1,13 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Class Mta_feedback
+ * Class Mta_evaluation
  *
  * @category   ta
  * @package    ta/evaluation
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
- * @uses       Mta_site
  * @uses       Evaluation_obj
  * @uses       Evaluation_question_obj
  * @uses       Evaluation_answer_obj
@@ -21,11 +20,11 @@ class Mta_evaluation extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Mta_site');
 		$this->load->library('Evaluation_obj');
 	}
 	
 	/**
+	 * 使用 ID 获取答案
 	 * @param int $id
 	 * @return Evaluation_answer_obj
 	 */
@@ -37,6 +36,7 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
+	 * 获取默认配置 ID
 	 * @param int $id
 	 * @return Evaluation_default_obj
 	 */
@@ -48,6 +48,7 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
+	 * 获取配置信息（可通过ID或type）
 	 * @param int|string $id
 	 * @param bool       $all
 	 * @return Evaluation_config_obj|array
@@ -81,6 +82,11 @@ class Mta_evaluation extends CI_Model
 		return $config;
 	}
 	
+	/**
+	 * 设置配置状态
+	 * @param int $id
+	 * @param int $state
+	 */
 	public function set_config_state($id, $state)
 	{
 		$config = $this->get_evaluation_config($id);
@@ -94,7 +100,8 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
-	 * @param $config Evaluation_config_obj
+	 * 获取配置默认问题
+	 * @param Evaluation_config_obj $config
 	 * @return array
 	 */
 	public function get_defaults($config)
@@ -124,11 +131,22 @@ class Mta_evaluation extends CI_Model
 		return $data;
 	}
 	
+	/**
+	 * 编辑默认问题
+	 * @param int    $id
+	 * @param string $content
+	 */
 	public function edit_default($id, $content)
 	{
 		$this->db->update('ji_ta_evaluation_default', array('content' => $content), array('id' => $id));
 	}
 	
+	/**
+	 * 创建默认问题
+	 * @param string $type
+	 * @param string $content
+	 * @return int
+	 */
 	public function create_default($type, $content)
 	{
 		$data = array(
@@ -139,6 +157,15 @@ class Mta_evaluation extends CI_Model
 		return $this->db->insert_id();
 	}
 	
+	/**
+	 * 编辑配置
+	 * @param int    $id
+	 * @param string $description
+	 * @param array  $choice_list
+	 * @param array  $blank_list
+	 * @param int    $addition
+	 * @param int    $USER_ID
+	 */
 	public function edit_config($id, $description, $choice_list, $blank_list, $addition, $USER_ID)
 	{
 		$data = array(
@@ -153,6 +180,16 @@ class Mta_evaluation extends CI_Model
 		$this->db->update('ji_ta_evaluation_config', $data, array('id' => $id));
 	}
 	
+	/**
+	 * 创建配置
+	 * @param        $type
+	 * @param string $description
+	 * @param array  $choice_list
+	 * @param array  $blank_list
+	 * @param int    $addition
+	 * @param int    $USER_ID
+	 * @return int
+	 */
 	public function create_config($type, $description, $choice_list, $blank_list, $addition, $USER_ID)
 	{
 		$data = array(
@@ -170,14 +207,24 @@ class Mta_evaluation extends CI_Model
 		return $this->db->insert_id();
 	}
 	
+	/**
+	 * 设置默认配置
+	 * @param int    $id
+	 * @param string $type
+	 */
 	public function set_default_config($id, $type)
 	{
+		if ($this->get_evaluation_state() == 0)
+		{
+			$this->Mta_evaluation->set_config_state($id, 1);
+		}
 		$this->Mta_site->update_site_config(array('ta_evaluation_config_' . $type => $id));
 	}
 	
 	/**
-	 * @param $type string
-	 * @param $keys array
+	 * 搜索默认问题
+	 * @param string $type
+	 * @param array  $keys
 	 * @return array
 	 */
 	public function search_default($type, $keys)
@@ -197,6 +244,7 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
+	 * 创建附加问题
 	 * @param int    $BSID
 	 * @param string $type
 	 * @param string $content
@@ -211,6 +259,13 @@ class Mta_evaluation extends CI_Model
 		$this->db->insert('ji_ta_evaluation_question', $data);
 	}
 	
+	/**
+	 * 编辑附加问题
+	 * @param int    $BSID
+	 * @param string $type
+	 * @param string $content
+	 * @param int    $id
+	 */
 	public function edit_question($BSID, $type, $content, $id)
 	{
 		$data = array(
@@ -222,6 +277,7 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
+	 * 创建答案
 	 * @param int    $BSID
 	 * @param int    $USER_ID
 	 * @param int    $TA_ID
@@ -244,6 +300,7 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
+	 * 获取答案
 	 * @param int $BSID
 	 * @param int $USER_ID
 	 * @param int $TA_ID
@@ -288,6 +345,7 @@ class Mta_evaluation extends CI_Model
 	}
 	
 	/**
+	 * 获取评教状态（-1：未开始；0：正在进行；1：已结束）
 	 * @return int
 	 */
 	public function get_evaluation_state()

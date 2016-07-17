@@ -1,9 +1,26 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Evaluation
+ *
+ * Controller ta/evaluation/student/evaluation
+ *
+ * @category   ta
+ * @package    ta/evaluation/student
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ * @uses       Mstudent
+ * @uses       Mta_evaluation
+ * @uses       Mta
+ * @uses       Mcourse
+ * @uses       Evaluation_obj
+ */
 class Evaluation extends TA_Controller
 {
 	
+	/**
+	 * Evaluation constructor.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -49,6 +66,9 @@ class Evaluation extends TA_Controller
 		return $course;
 	}
 	
+	/**
+	 * View the evaluation list
+	 */
 	public function view()
 	{
 		$data = $this->data;
@@ -69,6 +89,10 @@ class Evaluation extends TA_Controller
 		$this->load->view('ta/evaluation/evaluation/list', $data);
 	}
 	
+	/**
+	 * Evaluate a TA
+	 * @param int $BSID
+	 */
 	public function evaluate($BSID)
 	{
 		$data = $this->data;
@@ -119,7 +143,12 @@ class Evaluation extends TA_Controller
 		$data['blank_list'] = $default['blank'];
 		$this->load->view('ta/evaluation/evaluation/evaluation', $data);
 	}
-
+	
+	/**
+	 * Make an evaluation through ajax
+	 *
+	 * @return string result
+	 */
 	public function answer()
 	{
 		$BSID = $this->input->post('BSID');

@@ -1,6 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-
 /**
  * Class Feedback
  *
@@ -159,40 +158,48 @@ class Feedback extends TA_Controller
 			'ta_id'     => $this->input->post('ta_id'),
 			'title'     => $this->input->post('title'),
 			'content'   => $this->input->post('content'),
-			'anonymous' => $this->input->post('anonymous'));
+			'anonymous' => $this->input->post('anonymous')
+		);
 		
 		foreach ($data['course_list'] as $course)
 		{
-			if ($course->BSID == $form_data['BSID'])
+			if ($course->BSID != $form_data['BSID'])
 			{
-				foreach ($course->ta_list as $ta)
-				{
-					if ($ta->USER_ID == $form_data['ta_id'])
-					{
-						if (strlen($form_data['content']) >= 10 &&
-						    strlen($form_data['title']) >= 5 && strlen($form_data['title']) <= 20
-						)
-						{
-							if ($form_data['anonymous'] == 'false')
-							{
-								$form_data['anonymous'] = 0;
-							}
-							else
-							{
-								$form_data['anonymous'] = 1;
-							}
-							$form_data['user_id'] = $_SESSION['userid'];
-							
-							echo $this->Mta_feedback->create($form_data);
-							exit();
-						}
-						break;
-					}
-				}
-				break;
+				echo 'course error (You must choose a course)';
+				exit();
 			}
+			foreach ($course->ta_list as $ta)
+			{
+				if ($ta->USER_ID == $form_data['ta_id'])
+				{
+					if (!$this->Mta_feedback->examine_content($form_data['content']))
+					{
+						echo 'The content must be ' . $this->Mta_site->site_config['ta_feedback_content_min'] .
+						     '-' . $this->Mta_site->site_config['ta_feedback_content_max'] . ' letters';
+					}
+					else if (strlen($form_data['title']) < 5 || strlen($form_data['title']) > 20)
+					{
+						echo 'The title must be 5-20 letters';
+					}
+					else
+					{
+						if ($form_data['anonymous'] == 'false')
+						{
+							$form_data['anonymous'] = 0;
+						}
+						else
+						{
+							$form_data['anonymous'] = 1;
+						}
+						$form_data['user_id'] = $_SESSION['userid'];
+						echo $this->Mta_feedback->create($form_data);
+					}
+					exit();
+				}
+			}
+			break;
 		}
-		echo json_encode($form_data);
+		echo 'TA error (You must choose a TA)';
 		exit();
 	}
 	
@@ -220,11 +227,10 @@ class Feedback extends TA_Controller
 		{
 			echo "can't reply when applying to teacher";
 		}
-		else if (strlen($content) < $this->Mta_site->site_config['ta_feedback_content_min'] ||
-		         strlen($content) > $this->Mta_site->site_config['ta_feedback_content_max']
-		)
+		else if (!$this->Mta_feedback->examine_content($content))
 		{
-			echo "the content is too short or too long";
+			echo 'The content must be ' . $this->Mta_site->site_config['ta_feedback_content_min'] .
+			     '-' . $this->Mta_site->site_config['ta_feedback_content_max'] . ' letters';
 		}
 		else
 		{
