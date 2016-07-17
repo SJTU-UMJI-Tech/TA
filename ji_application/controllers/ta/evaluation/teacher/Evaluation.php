@@ -17,8 +17,8 @@ class Evaluation extends TA_Controller
 		$this->load->library('Evaluation_obj');
 		$this->data['state'] = $this->Mta_evaluation->get_evaluation_state();
 	}
-
-
+	
+	
 	/**
 	 * @param int $BSID
 	 * Evaluation homepage
@@ -34,7 +34,7 @@ class Evaluation extends TA_Controller
 			redirect(base_url('ta/evaluation/teacher/evaluation/check/' . $BSID));
 		}
 	}
-
+	
 	/**
 	 * @param int $BSID
 	 * @return Course_obj
@@ -53,7 +53,7 @@ class Evaluation extends TA_Controller
 		}
 		return $course;
 	}
-
+	
 	public function view()
 	{
 		$data = $this->data;
@@ -63,7 +63,7 @@ class Evaluation extends TA_Controller
 		foreach ($data['course_list'] as $course)
 		{
 			/** @var $course Course_obj */
-			$course->set_ta();
+			$course->set_ta()->set_question();
 			foreach ($course->ta_list as $ta)
 			{
 				/** @var $ta Ta_obj */
@@ -74,16 +74,16 @@ class Evaluation extends TA_Controller
 		$data['config'] = $this->Mta_evaluation->get_evaluation_config('student');
 		$this->load->view('ta/evaluation/evaluation/list', $data);
 	}
-
+	
 	public function check($BSID)
 	{
 		$data = $this->data;
 		$data['course'] = $this->validate_course($BSID);
-
+		
 		$data['course']->set_ta()->set_question();
 		$this->load->view('ta/evaluation/evaluation/check', $data);
 	}
-
+	
 	/**
 	 * Add a question
 	 * @param $BSID
@@ -91,18 +91,34 @@ class Evaluation extends TA_Controller
 	public function add($BSID)
 	{
 		$data = $this->data;
+		$config = $this->Mta_evaluation->get_evaluation_config('student');
+		if ($config->is_error())
+		{
+			$this->index();
+		}
 		$data['course'] = $this->validate_course($BSID);
-
 		$data['course']->set_ta()->set_question();
-
-		if (count($data['course']->question_list) >= 2)
+		if (count($data['course']->question_list) >= $config->addition || $this->data['state'] != -1)
 		{
 			$this->index($BSID);
 		}
-
 		$this->load->view('ta/evaluation/evaluation/add_question', $data);
 	}
-
+	
+	public function edit($BSID)
+	{
+		$data = $this->data;
+		$data['course'] = $this->validate_course($BSID);
+		$data['course']->set_question();
+		$data['id'] = $this->input->get('id');
+		if ($data['id'] > count($data['course']->question_list) || $data['id'] <= 0 || $this->data['state'] != -1)
+		{
+			$this->index($BSID);
+		}
+		$this->load->view('ta/evaluation/evaluation/edit_question', $data);
+	}
+	
+	
 	/**
 	 * Evaluate TA(s)
 	 * @param $BSID
@@ -110,16 +126,54 @@ class Evaluation extends TA_Controller
 	public function evaluate($BSID)
 	{
 		$data = $this->data;
+		if ($data['state'] < 0)
+		{
+			$this->index();
+		}
 		$data['course'] = $this->validate_course($BSID);
 		$data['course']->set_ta();
-		$data['choice_list'] = array();
-		for ($index = 0; $index < 5; $index++)
+		$data['ta'] = NULL;
+		foreach ($data['course']->ta_list as $ta)
 		{
-			$data['choice_list'][] = new stdClass();
+			/** @var $ta Ta_obj */
+			if ($ta->USER_ID == $this->input->get('ta_id'))
+			{
+				$data['ta'] = $ta;
+				break;
+			}
 		}
+		if ($data['ta'] == NULL)
+		{
+			$this->index();
+		}
+		$data['ta']->set_answer($BSID);
+		$answer_count = count($data['ta']->answer_list);
+		if ($answer_count == 0)
+		{
+			if ($data['state'] == 1)
+			{
+				$this->index();
+			}
+			else
+			{
+				$data['answer'] = json_encode(array());
+				$data['operation'] = 'evaluate';
+			}
+		}
+		else
+		{
+			$data['answer'] = json_encode($data['ta']->answer_list[$answer_count - 1]->content);
+			$data['operation'] = $answer_count >=
+			                     $this->Mta_site->site_config['ta_evaluation_edit_max'] ? 'review' : 'edit';
+		}
+		$data['course']->set_question();
+		$config = $this->Mta_evaluation->get_evaluation_config($this->data['type']);
+		$default = $this->Mta_evaluation->get_defaults($config);
+		$data['choice_list'] = $default['choice'];
+		$data['blank_list'] = $default['blank'];
 		$this->load->view('ta/evaluation/evaluation/evaluation', $data);
 	}
-
+	
 	/**
 	 * Add a question through ajax
 	 *
@@ -129,6 +183,7 @@ class Evaluation extends TA_Controller
 	{
 		$content = $this->input->get('content');
 		$type = $this->input->get('type');
+		$id = $this->input->get('id');
 		if ($type != 'choice' && $type != 'blank')
 		{
 			echo 'error question type';
@@ -147,19 +202,103 @@ class Evaluation extends TA_Controller
 		}
 		$this->load->model('Mcourse');
 		$question_list = $this->Mcourse->get_course_question($BSID);
-		if (count($question_list) >= 2)
+		if ($id == 0)
 		{
-			echo 'You have added two question!';
-			exit();
+			if (count($question_list) >= 2)
+			{
+				echo 'You have added two question!';
+				exit();
+			}
+			$this->Mta_evaluation->create_question($BSID, $type, $content);
 		}
-		$this->Mta_evaluation->create_question($BSID, $type, $content);
+		else
+		{
+			if (count($question_list) < $id)
+			{
+				echo 'Question not found!';
+				exit();
+			}
+			$this->Mta_evaluation->edit_question($BSID, $type, $content, $question_list[$id - 1]->id);
+		}
 		echo 'success';
 		exit();
 	}
-
+	
 	public function answer()
 	{
-		echo json_decode($this->input->post('answer'));
+		$BSID = $this->input->post('BSID');
+		$ta_id = $this->input->post('ta_id');
+		$course = $this->validate_course($BSID);
+		$course->set_ta();
+		$ta = NULL;
+		foreach ($course->ta_list as $_ta)
+		{
+			/** @var $_ta Ta_obj */
+			if ($_ta->USER_ID == $ta_id)
+			{
+				$ta = $_ta;
+				break;
+			}
+		}
+		if ($ta == NULL)
+		{
+			echo 'TA not found!';
+			exit();
+		}
+		$ta->set_answer($BSID);
+		if (count($course->answer_list) >= $this->Mta_site->site_config['ta_evaluation_edit_max'])
+		{
+			echo 'You have no chance to edit';
+			exit();
+		}
+		$course->set_question();
+		$answer_list = $this->input->post('answer');
+		$data = array('choice' => array(), 'blank' => array());
+		foreach ($answer_list as $answer)
+		{
+			if ($answer['num'] <= 0)
+			{
+				continue;
+			}
+			switch ($answer['type'])
+			{
+			case 'choice':
+			case 'blank':
+				if ($this->Mta_evaluation->examine_content($answer['answer']))
+				{
+					$data[$answer['type']][$answer['num']] = $answer['answer'];
+				}
+				else
+				{
+					echo 'content error';
+					exit();
+				}
+			}
+		}
+		$config = $this->Mta_evaluation->get_evaluation_config($this->data['type']);
+		if ($config->is_error())
+		{
+			echo 'config error';
+			exit();
+		}
+		$config = array(
+			'choice' => $config->choice,
+			'blank'  => $config->blank
+		);
+		foreach ($config as $key => $value)
+		{
+			for ($index = 1; $index <= $value; $index++)
+			{
+				if (!isset($data[$key][$index]))
+				{
+					echo 'validation error';
+					exit();
+				}
+			}
+		}
+		$this->Mta_evaluation->create_answer($BSID, $_SESSION['userid'], $ta_id,
+		                                     $this->data['type'], $data);
+		echo 'success';
 		exit();
 	}
 }

@@ -211,6 +211,16 @@ class Mta_evaluation extends CI_Model
 		$this->db->insert('ji_ta_evaluation_question', $data);
 	}
 	
+	public function edit_question($BSID, $type, $content, $id)
+	{
+		$data = array(
+			'BSID'    => $BSID,
+			'type'    => $type,
+			'content' => $this->Mta_site->html_base64($content)
+		);
+		$this->db->update('ji_ta_evaluation_question', $data, array('id' => $id));
+	}
+	
 	/**
 	 * @param int    $BSID
 	 * @param int    $USER_ID

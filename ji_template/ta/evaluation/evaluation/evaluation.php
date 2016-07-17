@@ -11,13 +11,13 @@
 					<h2>Evaluation Questions for <?php echo $this->Mta_site->print_semester(); ?></h2>
 					<h2 id="semester">
                     	<span class="label label-info">
-                        	<?php echo $this->Mta_site->print_semester(); ?> > Course ID > TA name
+                        	<?php echo $this->Mta_site->print_semester(); ?> > Course ID > <?php echo $ta->name_en; ?>
                     	</span>
 					</h2>
 					<div class="main_question">
 						<h4 class="module_description">
 							I) Choice Questions: (max score is 5 points for each questions)
-							<br /><br />
+							<br/><br/>
 						</h4>
 						<?php foreach ($choice_list as $key => $question): ?>
 							<h5>
@@ -50,7 +50,7 @@
 						<br/>
 						<h4 class="module_description">
 							II) Blank Questions:
-							<br /><br />
+							<br/><br/>
 						</h4>
 						<?php foreach ($blank_list as $key => $question): ?>
 							<h5>
@@ -67,7 +67,7 @@
 							<br/>
 							<h4 class="module_description">
 								III) Additional Questions:
-								<br /><br />
+								<br/><br/>
 							</h4>
 							<?php foreach ($course->question_list as $key => $question): ?>
 								<?php /** @var $question Evaluation_question_obj */ ?>
@@ -138,6 +138,7 @@
 				$select.attr('disabled', true);
 				<?php endif; ?>
 			}
+			<?php if($type == 'student'):?>
 			for (var i = 1; i <= <?php echo count($course->question_list); ?>; i++)
 			{
 				var type = $("#a" + i).attr('class');
@@ -159,6 +160,7 @@
 					<?php endif; ?>
 				}
 			}
+			<?php endif; ?>
 			<?php endif; ?>
 			<?php if ($operation == 'edit' || $operation == 'evaluate'): ?>
 			$("#submit-button").click(function ()
@@ -186,6 +188,7 @@
 					alert('Blank ' + i + ' not completed!');
 					return;
 				}
+				<?php if($type == 'student'):?>
 				for (var i = 1; i <= <?php echo count($course->question_list); ?>; i++)
 				{
 					var type = $("#a" + i).attr('class');
@@ -211,6 +214,7 @@
 					alert('Addition ' + i + ' not completed!');
 					return;
 				}
+				<?php endif;?>
 				$.ajax
 				 ({
 					 type: 'POST',
