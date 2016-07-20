@@ -318,7 +318,9 @@ class Mta_feedback extends CI_Model
 					}
 				}
 				/** Mail the student */
-				/** @TODO Don't have the email of the student  */
+				/** @TODO Don't have the email of the student
+				 *  In the table `jbxx` in sync
+				 */
 			}
 			
 			$reply_data['state'] = Feedback_obj::STATE_CLOSED | Feedback_obj::STATE_MANAGE |

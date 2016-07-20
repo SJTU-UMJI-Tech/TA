@@ -14,7 +14,7 @@
 require 'stu_app_head.php';
 ?>
 <div class="apply">
-    <form action="/ta/application/Student/saveinfo<?php echo "?courseid=$courseid";?>" method="post">
+    <form action="/ta/application/Student/saveinfo<?php echo "?courseid=$courseid";?>" method="post" enctype="multipart/form-data">
 		<?php foreach($list as $item): ?>
 			<fieldset class="text-container">
 				<legend>Personal Information</legend>
@@ -52,6 +52,7 @@ require 'stu_app_head.php';
 				<textarea id="comment" class="text" name="comment" rows="8"><?php echo set_value('comment'); ?></textarea>
 			</fieldset>
 		<?php endforeach;?>
+		<input type="file" name="upfile" size="20" />
         <input id="submit" type="button" align="center" value="Submit" class="submit reprocess">
 		<div id="bg"></div>
 		<div class="box" id="reprocess-box">

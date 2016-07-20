@@ -28,6 +28,7 @@ class Mta_site extends CI_Model
 	 */
 	public function get_site_config()
 	{
+		/** @TODO move to `ji_option` */
 		// 获取全局设置
 		$query = $this->db->get('ji_common_config');
 		$settings = $query->result_array();
@@ -105,6 +106,7 @@ class Mta_site extends CI_Model
 	 */
 	public function redirect_login($type)
 	{
+		/** @TODO rewrite */
 		if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '' )
 		{
 			if ($type == '')
