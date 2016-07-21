@@ -74,7 +74,6 @@
  * @property CI_Encrypt          $encrypt              Provides two-way keyed encoding using Mcrypt
  * @property CI_Javascript       $javascript           Javascript Class
  ***************** YOUR LIBRARIES *****************
-
  ***************** YOUR MODELS *****************
  * @property Mapply              $Mapply
  * @property Mcn                 $Ncn
@@ -93,6 +92,7 @@
  * @property Mteacher            $Mteacher
  * @property Mtest               $Mtest
  * @property Mtool               $Mtool
+ * @property Mta_application     $Mta_application
  */
 class CI_Controller
 {
@@ -151,7 +151,6 @@ class CI_Controller
  * @property CI_Encrypt          $encrypt              Provides two-way keyed encoding using Mcrypt
  * @property CI_Javascript       $javascript           Javascript Class
  ***************** YOUR LIBRARIES *****************
-
  ***************** YOUR MODELS *****************
  * @property Mapply              $Mapply
  * @property Mcn                 $Ncn
@@ -170,6 +169,7 @@ class CI_Controller
  * @property Mteacher            $Mteacher
  * @property Mtest               $Mtest
  * @property Mtool               $Mtool
+ * @property Mta_application     $Mta_application
  */
 class CI_Model
 {

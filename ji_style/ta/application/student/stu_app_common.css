@@ -1,0 +1,111 @@
+body {
+	background-image: url(/ji_style/images/back.jpg);
+	min-width:        500px;
+	font-family:      Arial;
+}
+
+.hidden {
+	display: none;
+}
+
+.title {
+	color:       rgb(0, 47, 92);
+	font-size:   29px;
+	font-weight: bold;
+}
+
+.logo {
+	min-width: 200px;
+}
+
+table.navbar tr {
+	border:           solid;
+	background-color: white;
+	height:           50px;
+}
+
+table.navbar tr.strip {
+	height:           10px;
+	background-color: rgb(245, 245, 245);
+	border:           0;
+}
+
+table.navbar tr.button {
+	border: 0;
+}
+
+table.navbar td {
+	text-align: center;
+}
+
+table.navbar a {
+	text-decoration: none;
+	color:           rgb(98, 98, 98);
+}
+
+tr.strip td.current {
+	background-color: rgb(255, 205, 0);
+}
+
+tr.button td.current {
+	background-color: rgb(245, 245, 245);
+}
+
+table.navbar {
+	border-bottom: 4px solid rgb(145, 145, 145);
+}
+
+.apply {
+	width:         71%;
+	border-top:    10px solid rgb(245, 245, 245);
+	background:    #fff;
+	margin:        20px auto 20px auto;
+	border-bottom: 4px solid rgb(145, 145, 145);
+}
+
+.apply .text-container {
+	margin:         20px 4% 0 4%;
+	padding-top:    0;
+	padding-bottom: 0;
+	font-size:      25px;
+	border:         solid;
+	border-color:   rgb(255, 205, 0);
+	border-radius:  10px;
+}
+
+.apply .text {
+	resize:   none;
+	display:  block;
+	border:   none;
+	width:    98%;
+	padding:  1%;
+	margin:   0;
+	overflow: auto;
+}
+
+.submit {
+	display:          block;
+	margin:           0 auto;
+	border:           solid;
+	border-width:     4px;
+	border-color:     rgb(255, 205, 0);
+	border-radius:    10px;
+	background-color: white;
+}
+
+.submit:hover {
+	color:              rgb(0, 121, 242);
+	background:         #fff;
+	background:         -moz-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+	background:         -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(50%, #fff), color-stop(77%, rgb(245, 245, 245)));
+	background:         -webkit-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+	background:         -o-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+	background:         -ms-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+	background:         linear-gradient(to bottom, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+	transition:         0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition:    0.5s all;
+	-o-transition:      0.5s all;
+	-ms-transition:     0.5s all;
+	cursor:             pointer;
+}

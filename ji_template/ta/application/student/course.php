@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 
-<link href="/ji_style/stu_app_courseinfo.css" rel="stylesheet" type="text/css" media="all"/>
-<script type="text/javascript" src="/ji_js/stu_app_courseinfo.js"></script>
+<link href="/ji_style/ta/application/student/stu_app_courseinfo.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="text/javascript" src="/ji_js/ta/application/student/stu_app_courseinfo.js"></script>
 <script type="text/javascript">
 	$(document).ready(function ()
 	{
@@ -21,7 +21,7 @@
 		<tr>
 			<td width="167px" class="sidebar">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0" class="choose-course">
-					<?php foreach ($class as $class_item): ?>
+					<?php foreach ($open_list as $class_item): ?>
 						<tr>
 							<td><?php echo ucfirst(strtolower($class_item->KCDM)); ?><img
 										src="/ji_style/images/arrow.png" height="17" class="hidden"></td>
@@ -30,7 +30,7 @@
 				</table>
 			</td>
 			<td class="mainbar">
-				<form id="form_action" action="/ta/application/Student/applydetail?courseid=" method="post">
+				<form id="form_action" action="/ta/application/student/apply/detail?KCDM=" method="post">
 					<fieldset class="text-container application-status">
 						<legend>Application Status</legend>
 						<div align="center">
@@ -119,12 +119,13 @@
 <div id="bg"></div>
 <div id="bg2" class="hidden"></div>
 <div class="hidden" id="class_data">
-	<?php foreach ($class as $class_item): ?>
-		<p id="<?= strtolower($class_item->KCDM) ?>" status="<?= $class_item->status ?>"
-		   KCDM="<?= strtolower($class_item->KCDM) ?>" KCZWMC="<?= $class_item->KCZWMC ?>" XM="<?= $class_item->XM ?>"
-		   XQ="<?= $class_item->XQ ?>" XN="<?= $class_item->XN ?>" KCJJ="<?= $class_item->KCJJ ?>"
-		   maxta="<?= $class_item->maxta ?>" curta="<?= $class_item->curta ?>" salary="<?= $class_item->salary ?>"
-		   email="<?= $class_item->email ?>" BSID="<?= $class_item->BSID ?>"></p>
+	<?php foreach ($open_list as $class_item): ?>
+		<? /** @var $class_item Course_application_obj */ ?>
+		<p id="<?= $class_item->id ?>" status="<?= $class_item->state ?>"
+		   KCDM="<?= $class_item->KCDM ?>" KCZWMC="<?= $class_item->KCZWMC ?>" XM="<?= $class_item->XM ?>"
+		   XQ="<?= $class_item->XQ_JI ?>" XN="<?= $class_item->XN ?>" KCJJ="<?= $class_item->KCJJ ?>"
+		   maxta="<?= $class_item->num_plan ?>" curta="<?= $class_item->num_apply ?>" salary="<?= $class_item->salary ?>"
+		   email="" BSID=""></p>
 	<?php endforeach; ?>
 </div>
 </body>

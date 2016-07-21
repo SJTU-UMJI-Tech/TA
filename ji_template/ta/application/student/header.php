@@ -2,8 +2,8 @@
 
 <body>
 
-<link href="/ji_style/stu_app_common.css" type="text/css" rel="stylesheet"/>
-<script src="/ji_js/stu_app_common.js"></script>
+<link href="/ji_style/ta/application/student/stu_app_common.css" type="text/css" rel="stylesheet"/>
+<script src="/ji_js/ta/application/student/stu_app_common.js"></script>
 <table width="71%" align="center">
 	<tr>
 		<td width="30%" align="left" class="logo"><img src="/ji_style/images/JI-logo.png" width="100%"></td>
@@ -28,7 +28,7 @@
 		                                                                                height="15"> Apply for TA</a>
 		</td>
 		<td></td>
-		<td id="button-3" class="notspace"><a href="/ta/application/student/myapplication"><img
+		<td id="button-3" class="notspace"><a href="/ta/application/student/apply/myapply"><img
 					src="/ji_style/images/application.png" height="16"> My Application</a></td>
 		<td></td>
 		<td id="button-4" class="notspace"><a href="/ta/application/student/service"><img

@@ -1,0 +1,33 @@
+.hidden {
+    display: none;
+}
+
+.apply table {
+    border-spacing: 0;
+}
+
+.apply td {
+    text-align: center;
+    height: 45px;
+    font-size: 20px;
+}
+
+.apply tr.first {
+    font-weight: bold;
+}
+
+.apply tr:not(.first):hover{
+    background-color: rgb(0,47,92);
+    color: white;
+}
+
+.submit {
+    font-size: 18px;
+    border-radius: 5px;
+    border-width: 0;
+    padding: 0 8px 0 8px;
+}
+
+.gray {
+    background-color: rgb(220,220,220);
+}

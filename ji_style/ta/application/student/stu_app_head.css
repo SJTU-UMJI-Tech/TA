@@ -1,0 +1,45 @@
+.hidden {
+    display: none;
+}
+
+.title {
+    color: rgb(0, 47, 92);
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.logo {
+    min-width: 200px;
+}
+
+table.navbar tr {
+    border: solid;
+    background-color: white;
+    height: 50px;
+}
+
+table.navbar tr.strip {
+    height: 10px;
+    background-color: rgb(245, 245, 245);
+}
+
+table.navbar td {
+    text-align: center;
+}
+
+table.navbar a {
+    text-decoration: none;
+    color: rgb(98, 98, 98);
+}
+
+tr.strip td.current {
+    background-color: rgb(255, 205, 0);
+}
+
+tr.button td.current {
+    background-color: rgb(245, 245, 245);
+}
+
+table.navbar {
+    border-bottom: 4px solid rgb(145, 145, 145);
+}

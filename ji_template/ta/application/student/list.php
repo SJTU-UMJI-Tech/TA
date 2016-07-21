@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 
-<link href="/ji_style/stu_app_apply.css" type="text/css" rel="stylesheet" />
-<script src="/ji_js/stu_app_apply.js"></script>
+<link href="/ji_style/ta/application/student/stu_app_apply.css" type="text/css" rel="stylesheet"/>
+<script src="/ji_js/ta/application/student/stu_app_apply.js"></script>
 
 
 <div class="apply" align="center">
@@ -12,24 +12,15 @@
 			<td width="31%">Professor Name</td>
 			<td width="18%">Application Status</td>
 		</tr>
-		<?php foreach($list as $item): ?>
-			<tr>
-				<td class="KCDM"><?=ucfirst(strtolower($item->KCDM))?></td>
-				<td><?=ucwords($item->KCZWMC)?></td>
-				<td><?=ucwords($item->XM)?></td>
-				<?php
-				if ( $item->status == '1' ) {
-					?>
-					<td>Open</td>
-					<?php
-				}else{
-					?>
-					<td>Close</td>
-					<?php
-				}
-				?>
+		<?php foreach ($open_list as $item): ?>
+			<? /** @var $item Course_application_obj */ ?>
+			<tr class="apply-list" lid="<?=$item->id ?>">
+				<td class="KCDM"><?= $item->KCDM ?></td>
+				<td><?= $item->KCZWMC ?></td>
+				<td><?= $item->XM ?></td>
+				<td><?= $item->state == 0 ? 'open' : 'close'; ?></td>
 			</tr>
-		<?php endforeach;?>
+		<?php endforeach; ?>
 	</table>
 </div>
 </body>
