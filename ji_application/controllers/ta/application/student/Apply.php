@@ -48,7 +48,7 @@ class Apply extends TA_Controller
 		$data['id'] = $this->input->get('id');
 		if ($data['id'] != '')
 		{
-			$data['course']=$this->validate_course($data['id']);
+			$data['course'] = $this->validate_course($data['id']);
 			//$data['class'] = $list;
 			$this->load->view('ta/application/student/course', $data);
 		}
@@ -76,14 +76,30 @@ class Apply extends TA_Controller
 	
 	public function myapply()
 	{
-		$this->load->database();
-		$this->load->helper('url');
 		$this->load->model('Mapply');
-		$id = '5133709242';
-		$list = $this->Mapply->showmyapplication($id);
-		$data['list'] = $list;
+		$_SESSION['user_id'] = '515370910207';
+		$data['list'] = $this->Mta_application->get_student_apply($_SESSION['user_id']);
+		foreach ($data['list'] as $record)
+		{
+			/** @var $record Application_record_obj */
+			$record->set_course();
+		}
 		$this->load->view('ta/application/student/myapply', $data);
 	}
 	
-	
+	private function temp()
+	{
+		$query = $this->db->get('ji_ta_config');
+		$new = array();
+		foreach ($query->result() as $item)
+		{
+			$new[] = array(
+				'name'   => $item->obj,
+				'key'    => $item->data,
+				'module' => 'ta'
+			);
+		}
+		print_r($new);
+		$this->db->insert_batch('ji_option', $new);
+	}
 }

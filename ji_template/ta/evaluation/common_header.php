@@ -7,7 +7,7 @@
 	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<!-- To be revised -->
 	<title><?php echo $page_name ?></title>
-	<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/ji_js/ta/evaluation.js"></script>
 	<script src="/ji_js/base64.js"></script>
 	<script src="/ji_js/confirmLogout.js"></script>

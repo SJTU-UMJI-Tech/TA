@@ -121,7 +121,7 @@
 							</li>
 						</ul>
 						<?php if (strlen($reply->picture) > 0): ?>
-							<a href="<?php echo $reply->picture; ?>" class="col-sm-4 swipebox">
+							<a href="<?php echo $reply->picture; ?>" class="swipebox col-sm-4 ">
 								<img src="<?php echo $reply->picture; ?>" onload="DrawImage(this,200,120);"
 								     width="200" height="120">
 							</a>

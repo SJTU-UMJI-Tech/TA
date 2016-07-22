@@ -39,7 +39,7 @@
                             <tr>
                                 <td width="44%" colspan="2">Status: <span class="info status">
                                         <?php
-                                        switch ($item->status)
+                                        switch ($item->state)
                                         {
                                             case -1:
                                                 echo 'Reject';

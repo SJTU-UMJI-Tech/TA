@@ -6,6 +6,7 @@ class Mta_application extends CI_Model
 	{
 		parent::__construct();
 		$this->load->library('Course_application_obj');
+		$this->load->library('Application_record_obj');
 	}
 	
 	/**
@@ -18,6 +19,23 @@ class Mta_application extends CI_Model
 		$query = $this->db->get_where('ji_ta_application_open', array('id' => $id));
 		$course = new Course_application_obj($query->row(0));
 		return $course;
+	}
+	
+	public function get_student_apply($user_id)
+	{
+		//$this->load->model('Mstudent');
+		//$student = $this->Mstudent->get_student_by_id($user_id);
+		$query = $this->db->get_where('ji_ta_application_record', array('USER_ID' => $user_id));
+		$apply_list = array();
+		foreach ($query->result() as $row)
+		{
+			$record =new Application_record_obj($row);
+			if(!$record->is_error())
+			{
+				$apply_list[] = $record;
+			}
+		}
+		return $apply_list;
 	}
 	
 	public function get_open_list()
