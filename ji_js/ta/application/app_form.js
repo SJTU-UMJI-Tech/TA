@@ -22,6 +22,7 @@
 	function AppForm($element)
 	{
 		this.$container = $element;
+		this.$autosave = this.$container.find(".form-autosave");
 		
 		this.$basic = this.$container.find(".form-basic");
 		
@@ -244,7 +245,7 @@
 				awd: this.serializeText(this.$awd),
 				ref: this.serializeList(this.$refInfo)
 			};
-			console.log(data);
+			//console.log(data);
 			return data;
 		},
 		
@@ -286,9 +287,16 @@
 		reform: function (id)
 		{
 			var data = this.loadCookie(id);
-			//console.log(data);
 			this.reformPart(this.$basic, data.basic);
+			this.reformPart(this.$edu, data.edu);
 			this.reformInfo(this.$eduInfo, data.edu.info);
+			this.reformPart(this.$exp, data.exp);
+			this.reformInfo(this.$workInfo, data.work.info);
+			this.reformPart(this.$res, data.res);
+			this.reformInfo(this.$langInfo, data.lang.info);
+			this.reformPart(this.$com, data.com);
+			this.reformPart(this.$awd, data.awd);
+			this.reformInfo(this.$refInfo, data.ref.info);
 		},
 		
 		reformPart: function ($part, data)
@@ -345,13 +353,24 @@
 		loadCookie: function (id)
 		{
 			return JSON.parse($.cookie('form-backup-' + id));
+		},
+		
+		autosave: function (id, time)
+		{
+			var _this = this;
+			setInterval(function ()
+			{
+				_this.saveCookie(id);
+				var date = new Date((new Date()).getTime() + 3600000 * 8);
+				_this.$autosave.html('<h4>Autosaved at ' + date.toUTCString() + '</h4>');
+			}, time);
 		}
 		
 	};
 	
 	$.fn.AppForm = function ()
 	{
-		var $this = new AppForm(this)
+		return new AppForm(this);
 	};
 	
 });

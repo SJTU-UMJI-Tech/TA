@@ -9,15 +9,13 @@
 	}
 </style>
 
-<button class="btn btn-primary" id="btn-test">test</button>
-<button class="btn btn-primary" id="btn-test2">test2</button>
-
-
-
 <div class="container">
 	<div class="panel panel-default" id="form">
 		<div class="panel-heading">Teaching Assistant Application Form</div>
 		<div class="panel-body">
+			<div class="form-autosave">
+				<h4>Form will be autosaved</h4>
+			</div>
 			<div class="form-list form-basic row">
 				<div class="col-sm-9">
 					<div class="row">
@@ -148,7 +146,7 @@
 				<h3>TA EXPERIENCES</h3>
 				
 				<div class="row">
-					<h5 class="col-sm-3">＊Basic TA Certificate</h5>
+					<h5 class="col-sm-3">*Basic TA Certificate</h5>
 					<div class="row col-sm-9">
 						<div class="col-md-6">
 							<input type="radio" name="basic-ta-certificate" value="yes" title="">Yes
@@ -159,7 +157,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<h5 class="col-sm-3">＊Advanced TA Certificate</h5>
+					<h5 class="col-sm-3">*Advanced TA Certificate</h5>
 					<div class="row col-sm-9">
 						<div class="col-md-6">
 							<input type="radio" name="advanced-ta-certificate" value="yes" title="">Yes
@@ -260,14 +258,8 @@
 	$(document).ready(function ()
 	{
 		var form = $('#form').AppForm();
-		$("#btn-test").click(function ()
-		{
-			form.saveCookie('515370910207');
-		});
-		$("#btn-test2").click(function ()
-		{
-			form.reform('515370910207');
-		});
+		form.reform('515370910207');
+		form.autosave('515370910207', 10000);
 	});
 </script>
 
