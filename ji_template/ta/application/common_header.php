@@ -10,9 +10,8 @@
 	<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
 	<noscript>Your browser does not support JavaScript!</noscript>
 	
-	<link rel="stylesheet" type="text/css"
-	      href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
 	
 	<base target="_self">
