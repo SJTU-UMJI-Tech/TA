@@ -19,28 +19,22 @@ class Mta_site extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-
+		
 	}
-
+	
 	/**
 	 * 获取所有的网站设置项
 	 * @return array
 	 */
 	public function get_site_config()
 	{
-		// 获取全局设置
-		$query = $this->db->get('ji_common_config');
+		$query = $this->db->select('name,key')->from('ji_option')
+		                  ->where(array('module' => 'global'))
+		                  ->or_where(array('module' => 'ta'))->get();
 		$settings = $query->result_array();
 		foreach ($settings as $setting)
 		{
-			$data[$setting['obj']] = $setting['data'];
-		}
-		// 获取TA设置
-		$query = $this->db->get('ji_ta_config');
-		$settings = $query->result_array();
-		foreach ($settings as $setting)
-		{
-			$data[$setting['obj']] = $setting['data'];
+			$data[$setting['name']] = $setting['key'];
 		}
 		$mtime = explode(' ', microtime());
 		$startTime = floor(($mtime[1] + $mtime[0]) * 1000);
@@ -48,7 +42,7 @@ class Mta_site extends CI_Model
 		$this->site_config = $data;
 		return $data;
 	}
-
+	
 	/**
 	 * 更新网站设置
 	 * @param   array $data
@@ -56,13 +50,15 @@ class Mta_site extends CI_Model
 	 */
 	public function update_site_config($data)
 	{
+		$update_data = array();
 		foreach ($data as $key => $value)
 		{
-			$updatedata[] = array(
-				'obj'  => $key,
-				'data' => $value);
+			$update_data[] = array(
+				'name' => $key,
+				'key'  => $value
+			);
 		}
-		return $this->db->update_batch('ji_ta_config', $updatedata, 'obj');
+		return $this->db->update_batch('ji_option', $update_data, 'name');
 	}
 	
 	/**
@@ -94,7 +90,8 @@ class Mta_site extends CI_Model
 		$semester_name = array(
 			'FA' => 'Fall',
 			'SP' => 'Spring',
-			'SU' => 'Summer');
+			'SU' => 'Summer'
+		);
 		return substr($this->site_config['ji_academic_year'], 0, 4) . ' ' .
 		       $semester_name[$this->site_config['ji_um_term']];
 	}
@@ -105,7 +102,8 @@ class Mta_site extends CI_Model
 	 */
 	public function redirect_login($type)
 	{
-		if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '' )
+		/** @TODO rewrite */
+		if (!isset($_SESSION['userid']) || $_SESSION['userid'] == '')
 		{
 			if ($type == '')
 			{
@@ -127,7 +125,7 @@ class Mta_site extends CI_Model
 				redirect(base_url('ta/evaluation/'));
 				break;
 			}
-
+			
 		}
 	}
 }

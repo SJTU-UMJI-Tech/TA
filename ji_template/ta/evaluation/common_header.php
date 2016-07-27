@@ -7,7 +7,7 @@
 	      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<!-- To be revised -->
 	<title><?php echo $page_name ?></title>
-	<script src="/ji_js/jquery-2.1.4.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/ji_js/ta/evaluation.js"></script>
 	<script src="/ji_js/base64.js"></script>
 	<script src="/ji_js/confirmLogout.js"></script>
@@ -23,9 +23,7 @@
 </head>
 
 <body>
-<script>
 
-</script>
 <!--Button for turning to the top-->
 <div id="To_Top">
 	<span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"

@@ -145,7 +145,7 @@ class Evaluation extends TA_Controller
 	}
 	
 	/**
-	 * Make an evaluation through ajax
+	 * Make adn evaluation through ajax
 	 *
 	 * @return string result
 	 */

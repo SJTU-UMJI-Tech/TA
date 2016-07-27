@@ -1,0 +1,480 @@
+body {
+    background-image: url(/ji_style/images/back.jpg);
+    min-width: 1000px;
+    font-family: Arial;
+}
+
+.title {
+    color: rgb(0, 47, 92);
+    font-size: 29px;
+    font-weight: bold;
+}
+
+.logo {
+    min-width: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.processing {
+    border-color: rgb(0, 141, 282);
+}
+
+.navbar tr {
+    border: solid;
+    background-color: white;
+    height: 50px;
+}
+
+.navbar tr.strip {
+    height: 10px;
+    background-color: rgb(245, 245, 245);
+}
+
+.navbar td {
+    text-align: center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: rgb(98, 98, 98);
+}
+
+tr.strip td.current {
+    background-color: rgb(255, 205, 0);
+}
+
+tr.button td.current {
+    background-color: rgb(245, 245, 245);
+}
+
+.navbar {
+    border-bottom: 4px solid rgb(145, 145, 145);
+}
+
+.apply, .list {
+    width: 71%;
+    background: #fff;
+    margin: 20px auto 20px auto;
+    border-bottom: 4px solid rgb(145, 145, 145);
+}
+
+.apply .navbar {
+    margin: 0;
+    border-bottom: none;
+}
+
+.apply .navbar td {
+    background-color: rgb(245, 245, 245);
+    vertical-align: middle;
+}
+
+.apply tr.strip td.current {
+    background-color: rgb(255, 205, 0);
+}
+
+.apply tr.button td.current {
+    background-color: white;
+}
+
+.sidebar {
+    background-color: rgb(0, 47, 92);
+    vertical-align: top;
+    color: white;
+    font-size: 23px;
+}
+
+.sidebar td {
+    height: 60px;
+    padding-left: 20px;
+}
+
+.sidebar .empty {
+    height: 60px;
+}
+
+.sidebar td img {
+    margin-left: 10px;
+}
+
+.mainbar {
+    vertical-align: top;
+}
+
+.text-container, .isEmpty {
+    margin: 30px 4% 30px 4%;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 22px;
+    border: solid;
+    border-color: rgb(255, 205, 0);
+    border-radius: 10px;
+}
+
+.apply .personal-information table {
+    margin: 20px auto 0 auto;
+    border-spacing: 0;
+}
+
+.apply .personal-information td {
+    height: 1.5em;
+    vertical-align: bottom;
+    border-bottom: solid;
+    padding-left: 6%;
+    border-color: rgb(145, 145, 145);
+}
+
+.apply .personal-information tr.hide {
+    display: none;
+}
+
+.apply .personal-information table .info {
+    color: rgb(98, 98, 98);
+}
+
+.apply .text-container .choices {
+    display: none;
+    margin: 30px 0 0 0;
+}
+
+.apply .extra-information {
+    display: none;
+}
+
+.apply .text-container-2 {
+    width: 85%;
+    margin: 30px auto 0 auto;
+    border: solid;
+    border-color: rgb(145, 145, 145);
+}
+
+.apply .text-container-2 p {
+    margin: 0;
+    font-size: 18px;
+    word-break: normal;
+}
+
+.apply .time {
+    display: none;
+    margin: 20px auto 0 auto;
+    border: solid;
+    border-color: rgb(0, 141, 282);
+    border-radius: 10px;
+    width: 70%;
+    padding: 10px 0 20px 0;
+}
+
+.apply .time .select-request {
+    margin: 0 auto;
+}
+
+.apply .reason {
+    display: none;
+    margin: 20px auto 0 auto;
+    border: solid;
+    border-color: rgb(0, 141, 282);
+    border-radius: 10px;
+    width: 70%;
+    padding: 10px 0 20px 0;
+}
+
+.apply .reason > input {
+    margin-left: 32%;
+}
+
+.apply .reason .select-request {
+    margin: 0 auto;
+}
+
+.apply .reason .reasons-content {
+    resize: none;
+}
+
+.apply .reason span {
+    padding-left: 0.5em;
+}
+
+.apply .up-down {
+    margin: 10px auto 0 auto;
+}
+
+.apply .isEmpty {
+    padding-bottom: 20px;
+}
+
+.submit {
+    display: block;
+    margin: 0 auto;
+    border: solid;
+    border-width: 4px;
+    border-color: rgb(255, 205, 0);
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 25px;
+    background-color: white;
+}
+
+.submit:hover {
+    color: rgb(0, 121, 242);
+    background: #fff;
+    background: -moz-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(50%, #fff), color-stop(77%, rgb(245, 245, 245)));
+    background: -webkit-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: -o-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: -ms-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: linear-gradient(to bottom, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    cursor: pointer;
+}
+
+#bg {
+    display: none;
+    background-color: #666;
+    position: absolute;
+    z-index: 101;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+}
+
+#bg2 {
+    background-color: #666;
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+}
+
+.box {
+    display: none;
+    position: absolute;
+    z-index: 102;
+    background-color: #fff;
+    border: solid rgb(0, 141, 282);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#pass-box,#modify-box,#change-box {
+    width: 300px;
+    height: 130px;
+}
+
+#pass-box p,#modify-box p,#change-box p {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#pass-box input,#modify-box input,#change-box input {
+    font-size: 16px;
+    width: 80px;
+}
+
+#interview-box {
+    width: 300px;
+    height: 180px;
+}
+
+#interview-box p {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#interview-box #changetime {
+    text-align: center;
+    padding-top: 0;
+}
+
+#interview-box input {
+    font-size: 16px;
+    width: 80px;
+}
+
+#reject-box {
+    width: 380px;
+    padding-bottom: 20px;
+}
+
+#reject-box p.question {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#reject-box input {
+    font-size: 16px;
+    width: 80px;
+}
+
+#reject-box select {
+    border: solid;
+    border-width: 2px;
+    border-color: rgb(145, 145, 145);
+    border-radius: 5px;
+    color: black;
+    padding: 3px;
+    vertical-align: center;
+    margin: 0 auto 20px auto;
+}
+
+#reject-box select:hover {
+    border-width: 3px;
+    padding: 2px;
+}
+
+#reject-box select:focus {
+    border-width: 3px;
+    border-color: rgb(255, 205, 0);
+    padding: 2px;
+}
+
+#reprocess-box {
+    width: 380px;
+    height: 130px;
+}
+
+#reprocess-box p {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#reprocess-box input {
+    font-size: 16px;
+    width: 80px;
+}
+
+.list {
+    border-top: 10px solid rgb(245, 245, 245);
+}
+
+.list .application-status .status {
+    color: rgb(0, 121, 242);
+}
+
+.list .course-information li {
+    font-size: 17px;
+    vertical-align: middle;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.list .course-information input {
+    border: solid;
+    border-width: 2px;
+    border-color: rgb(145, 145, 145);
+    border-radius: 5px;
+    color: black;
+    padding: 3px;
+    vertical-align: center;
+    font-size: 15px;
+    position: relative;
+    z-index: 100;
+}
+
+.list .course-information input.readonly {
+    color: rgb(98, 98, 98);
+    background-color: rgb(238, 238, 238);
+}
+
+.list .course-information img {
+    margin-left: 7px;
+    vertical-align: -5px;
+    position: relative;
+    z-index: 100;
+}
+
+.list .course-information td {
+    vertical-align: top;
+}
+
+.list .course-information textarea {
+    resize: none;
+    border: solid;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    border-color: rgb(145, 145, 145);
+    color: rgb(98, 98, 98);
+    border-width: 2px;
+    padding: 9px;
+    width: 88%;
+    font-family: Arial;
+}
+
+.list .course-information textarea.readonly {
+    background-color: rgb(238, 238, 238);
+}
+
+.submit {
+    display: block;
+    margin: 0 auto;
+    border: solid;
+    border-width: 4px;
+    border-color: rgb(255, 205, 0);
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 25px;
+    background-color: white;
+}
+
+.submit:hover {
+    color: rgb(0, 121, 242);
+    background: #fff;
+    background: -moz-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(50%, #fff), color-stop(77%, rgb(245, 245, 245)));
+    background: -webkit-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: -o-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: -ms-linear-gradient(top, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    background: linear-gradient(to bottom, #fff 0%, #fff 50%, rgb(245, 245, 245) 77%);
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    cursor: pointer;
+}
+
+.list .application-status .submit {
+    width: 45%;
+    margin-bottom: 20px;
+}
+
+.list div.submit {
+    margin-bottom: 20px;
+}
+
+.list div.submit p {
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+#modify-box2 {
+    width: 300px;
+    height: 160px;
+}
+
+#modify-box2 p {
+    text-align: center;
+    padding-top: 20px;
+}
+
+#modify-box2 input {
+    font-size: 16px;
+    width: 80px;
+}
