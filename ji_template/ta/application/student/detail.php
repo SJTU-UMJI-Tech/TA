@@ -23,7 +23,7 @@
 							<div class="row">
 								<h5 class="col-sm-6">*CHINESE NAME</h5>
 								<div class="col-sm-6">
-									<input class="form-control" name="chinese-name" type="text" title="name_ch">
+									<input class="form-control" name="" type="text" title="name_ch">
 								</div>
 							</div>
 							<div class="row">
@@ -37,17 +37,17 @@
 							<div class="row">
 								<h5 class="col-sm-5">*BIRTH DATE</h5>
 								<div class="col-sm-7">
-									<input class="form-control" name="birth-date" type="text" title="birth-date">
+									<input class="form-control" name="" type="text" title="birth-date">
 								</div>
 							</div>
 							<div class="row">
 								<h5 class="col-sm-5">*SEX</h5>
 								<div class="row col-sm-7">
 									<div class="col-md-6">
-										<input type="radio" name="sex" value="male" title="sex-male">Male
+										<input type="radio" name="sex" value="male" title="list">Male
 									</div>
 									<div class="col-md-6">
-										<input type="radio" name="sex" value="female" title="sex-female">Female
+										<input type="radio" name="sex" value="female" title="list">Female
 									</div>
 								</div>
 							</div>
@@ -119,10 +119,10 @@
 					<h5 class="col-sm-3">*Honor Code Violation Record</h5>
 					<div class="row col-sm-9">
 						<div class="col-md-6">
-							<input type="radio" name="honorcode-access" value="yes" title="">Yes
+							<input type="radio" name="honorcode-violate" value="yes" title="">Yes
 						</div>
 						<div class="col-md-6">
-							<input type="radio" name="honorcode-access" value="no" title="">No
+							<input type="radio" name="honorcode-violate" value="no" title="">No
 						</div>
 					</div>
 				</div>
@@ -252,6 +252,8 @@
 </div>
 
 
+<button id="form-submit" class="btn btn-primary">Submit</button>
+
 <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="/ji_js/ta/application/app_form.js"></script>
 <script type="text/javascript">
@@ -260,6 +262,25 @@
 		var form = $('#form').AppForm();
 		form.reform('515370910207');
 		form.autosave('515370910207', 10000);
+		
+		$("#form-submit").click(function ()
+		{
+			$.ajax
+			 ({
+				 type: 'POST',
+				 url: '/ta/application/student/apply/submit',
+				 data: {json: JSON.stringify(form.serialize())},
+				 dataType: 'text',
+				 success: function (data)
+				 {
+					 alert(data);
+				 },
+				 error: function ()
+				 {
+					 alert('fail!');
+				 }
+			 });
+		});
 	});
 </script>
 

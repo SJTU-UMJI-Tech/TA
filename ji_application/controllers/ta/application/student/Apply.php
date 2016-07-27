@@ -74,6 +74,45 @@ class Apply extends TA_Controller
 		$this->load->view('ta/application/student/detail', $data);
 	}
 	
+	public function submit()
+	{
+		$data = json_decode($this->input->post('json'), true);
+		$required = array(
+			'english-name'      => 'English name',
+			'phone'             => 'Phone',
+			'email'             => 'Email',
+			'skype'             => 'Skype account',
+			'honorcode-access'  => 'Permission of accessing honor code',
+			'honorcode-violate' => 'Honor code violation'
+		);
+		foreach ($data as $content)
+		{
+			if (is_array($content))
+			{
+				foreach ($content as $name => $item)
+				{
+					if (!is_array($item) && array_key_exists($name, $required))
+					{
+						if ($item != '')
+						{
+							unset($required[$name]);
+						}
+					}
+				}
+			}
+		}
+		if (count($required) > 0)
+		{
+			foreach ($required as $item)
+			{
+				echo $item . ' not completed';
+				exit();
+			}
+		}
+		echo 'success';
+		exit();
+	}
+	
 	public function myapply()
 	{
 		$this->load->model('Mapply');
