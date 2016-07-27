@@ -243,7 +243,8 @@
 				lang: this.serializeList(this.$langInfo),
 				com: this.serializeText(this.$com),
 				awd: this.serializeText(this.$awd),
-				ref: this.serializeList(this.$refInfo)
+				ref: this.serializeList(this.$refInfo),
+				date: (new Date()).getTime()
 			};
 			//console.log(data);
 			return data;
@@ -297,6 +298,8 @@
 			this.reformPart(this.$com, data.com);
 			this.reformPart(this.$awd, data.awd);
 			this.reformInfo(this.$refInfo, data.ref.info);
+			var date = new Date(data.date + 3600000 * 8);
+			this.$autosave.html('<h4>Loaded saved data at ' + date.toUTCString() + '</h4>');
 		},
 		
 		reformPart: function ($part, data)
