@@ -2,7 +2,7 @@
 
 class Course_application_obj extends My_obj
 {
-	/** -- The vars in the table `ji_course_open` -- */
+	/** -- The vars in the table `ji_ta_application_open` -- */
 
 	/** @var int    int(11)     ID */
 	public $id;

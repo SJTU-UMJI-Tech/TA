@@ -29,8 +29,10 @@ class Ta_obj extends My_obj
 	public $email;
 	/** @var string varchar(20) 手机号 */
 	public $phone;
-	/** @var string varchar(15)	QQ号 */
-	public $qq;
+	/** @var string varchar(15)	SKYPE */
+	public $skype;
+	/** @var string TEXT         */
+	public $address;
 	/** @var string timestamp	创建时间 */
 	public $CREATE_TIMESTAMP;
 	/** @var string timestamp	更新时间 */

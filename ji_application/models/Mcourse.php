@@ -30,7 +30,7 @@ class Mcourse extends CI_Model
 	 */
 	public function get_course_by_id($BSID)
 	{
-		$query = $this->db->get_where('ji_course_open', array('BSID' => $BSID, 'SCBJ' => 'N'));
+		$query = $this->db->get_where('kkxx', array('BSID' => $BSID, 'SCBJ' => 'N'));
 		$course = new Course_obj($query->row(0));
 		return $course;
 	}
@@ -52,7 +52,7 @@ class Mcourse extends CI_Model
 		{
 			return $course_list;
 		}
-		$query = $this->db->select('*')->from('ji_course_open')->where(array(
+		$query = $this->db->select('*')->from('kkxx')->where(array(
 			                                                               'XQ'   => $this->Mta_site->site_config['ji_academic_term'],
 			                                                               'XN'   => $this->Mta_site->site_config['ji_academic_year'],
 			                                                               'SCBJ' => 'N'
@@ -122,7 +122,7 @@ class Mcourse extends CI_Model
 	public function get_course_student($BSID)
 	{
 		$this->load->model('Mstudent');
-		$query = $this->db->select('USER_ID')->from('ji_course_select')->where(array(
+		$query = $this->db->select('USER_ID')->from('xkxx')->where(array(
 			                                                                       'BSID' => $BSID,
 			                                                                       'SCBJ' => 'N'
 		                                                                       ))
@@ -143,19 +143,7 @@ class Mcourse extends CI_Model
 		}
 		return $student_list;
 	}
-	
-	public function get_course_teacher($BSID)
-	{
-		$this->load->model('Mteacher');
-		$course = $this->get_course_by_id($BSID);
-		if ($course->is_error())
-		{
-			return new Teacher_obj();
-		}
-		$teacher = $this->Mteacher->get_teacher_by_id($course->XGH);
-		return $teacher;
-	}
-	
+
 	/**
 	 * 获取课程附加问题
 	 * @param int $BSID

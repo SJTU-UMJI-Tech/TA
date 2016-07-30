@@ -61,13 +61,42 @@
 		{
 			this.addListener();
 			this.addEdu();
-			this.addExp({code: 'VV210', name: 'Chemistry', period: 'FA 2015', instructor: 'Thomas A Hamade'});
-			this.addExp({code: 'VV156', name: 'Calculus', period: 'FA 2015', instructor: 'Jing Liu'});
-			this.addExp({code: 'VV210', name: 'Intro to Programming', period: 'FA 2015', instructor: 'Jigang Wu'});
-			this.addExp({code: 'VY100', name: 'Academic Writing', period: 'FA 2015', instructor: 'Cynthia Vagnetti'});
 			this.addWork();
 			this.addLang();
 			this.addRef();
+		},
+		
+		initInfo: function (name, birthday, id, class_id, course)
+		{
+			this.$basic.find("input[name='chinese-name']").val(name);
+			this.$basic.find("input[name='birth-date']").val(birthday);
+			this.$edu.find("input[name='student-id']").val(id);
+			this.$edu.find("input[name='class-id']").val(class_id);
+			for (var index in course)
+			{
+				this.addExp({
+					code: course[index].KCDM,
+					name: course[index].KCZWMC,
+					period: course[index].XQ_JI + " " + course[index].XN.substr(0, 4),
+					instructor: course[index].XM
+				});
+			}
+		},
+		
+		initHistory: function (name_en, sex, phone, email, skype, address)
+		{
+			this.$basic.find("input[name='english-name']").val(name_en);
+			this.$basic.find("input[name='phone']").val(phone);
+			this.$basic.find("input[name='email']").val(email);
+			this.$basic.find("input[name='skype']").val(skype);
+			this.$basic.find("input[name='address']").val(address);
+			this.$basic.find("input[name='sex']").each(function ()
+			{
+				if ($(this).val() == 'male' && sex == 'M' || $(this).val() == 'female' && sex == 'F')
+				{
+					$(this).attr('checked', 'checked');
+				}
+			});
 		},
 		
 		addListener: function ()
@@ -307,21 +336,26 @@
 			var property;
 			for (property in data)
 			{
-				$part.find("[name='" + property + "']").each(function ()
+				if (data[property] != '')
 				{
-					if ($(this).attr('type') == 'radio')
+					$part.find("[name='" + property + "']").each(function ()
 					{
-						$(this).removeAttr('checked');
-						if ($(this).val() == data[property])
+						if ($(this).attr('type') == 'radio')
 						{
-							$(this).attr('checked', 'checked');
+							$(this).removeAttr('checked');
+							if ($(this).val() == data[property])
+							{
+								$(this).attr('checked', 'checked');
+							}
 						}
-					}
-					else
-					{
-						$(this).val(data[property]);
-					}
-				});
+						else
+						{
+							
+							$(this).val(data[property]);
+							
+						}
+					});
+				}
 			}
 		},
 		
@@ -355,7 +389,8 @@
 		
 		loadCookie: function (id)
 		{
-			return JSON.parse($.cookie('form-backup-' + id));
+			var data = $.cookie('form-backup-' + id);
+			return data ? JSON.parse(data) : {};
 		},
 		
 		autosave: function (id, time)

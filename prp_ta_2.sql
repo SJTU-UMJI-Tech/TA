@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `ji_students` (
   
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ji_course_open`;
-CREATE TABLE IF NOT EXISTS `ji_course_open` (
+DROP TABLE IF EXISTS `kkxx`;
+CREATE TABLE IF NOT EXISTS `kkxx` (
 
   `USER_ID` varchar(20) NOT NULL ,
   `BSID` varchar(100) NOT NULL ,

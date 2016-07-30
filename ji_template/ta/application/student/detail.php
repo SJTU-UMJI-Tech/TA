@@ -23,7 +23,8 @@
 							<div class="row">
 								<h5 class="col-sm-6">*CHINESE NAME</h5>
 								<div class="col-sm-6">
-									<input class="form-control" name="" type="text" title="name_ch">
+									<input class="form-control" name="chinese-name" type="text" title="list"
+									       disabled="disabled">
 								</div>
 							</div>
 							<div class="row">
@@ -37,17 +38,18 @@
 							<div class="row">
 								<h5 class="col-sm-5">*BIRTH DATE</h5>
 								<div class="col-sm-7">
-									<input class="form-control" name="" type="text" title="birth-date">
+									<input class="form-control" name="birth-date" type="text" title="list"
+									       disabled="disabled">
 								</div>
 							</div>
 							<div class="row">
 								<h5 class="col-sm-5">*SEX</h5>
 								<div class="row col-sm-7">
 									<div class="col-md-6">
-										<input type="radio" name="sex" value="male" title="list">Male
+										<input type="radio" name="sex" value="male" title="">Male
 									</div>
 									<div class="col-md-6">
-										<input type="radio" name="sex" value="female" title="list">Female
+										<input type="radio" name="sex" value="female" title="">Female
 									</div>
 								</div>
 							</div>
@@ -106,23 +108,23 @@
 				<div class="row">
 					<h5 class="col-sm-3">*STUD. ID</h5>
 					<div class="col-sm-9">
-						<input class="form-control" type="text" title="">
+						<input class="form-control" name="student-id" type="text" title="lust" disabled="disabled">
 					</div>
 				</div>
 				<div class="row">
 					<h5 class="col-sm-3">*CLASS ID</h5>
 					<div class="col-sm-9">
-						<input class="form-control" type="text" title="">
+						<input class="form-control" name="class-id" type="text" title="list" disabled="disabled">
 					</div>
 				</div>
 				<div class="row">
 					<h5 class="col-sm-3">*Honor Code Violation Record</h5>
 					<div class="row col-sm-9">
 						<div class="col-md-6">
-							<input type="radio" name="honorcode-violate" value="yes" title="">Yes
+							<input type="radio" name="honorcode-access" value="yes" title="">Yes
 						</div>
 						<div class="col-md-6">
-							<input type="radio" name="honorcode-violate" value="no" title="">No
+							<input type="radio" name="honorcode-access" value="no" title="">No
 						</div>
 					</div>
 				</div>
@@ -252,97 +254,37 @@
 </div>
 
 
-<button id="form-submit" class="btn btn-primary">Submit</button>
-
 <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="/ji_js/ta/application/app_form.js"></script>
 <script type="text/javascript">
 	$(document).ready(function ()
 	{
 		var form = $('#form').AppForm();
-		form.reform('515370910207');
-		form.autosave('515370910207', 10000);
+		var user_id = '<?php echo $_SESSION['userid'];?>';
 		
-		$("#form-submit").click(function ()
-		{
-			$.ajax
-			 ({
-				 type: 'POST',
-				 url: '/ta/application/student/apply/submit',
-				 data: {json: JSON.stringify(form.serialize())},
-				 dataType: 'text',
-				 success: function (data)
-				 {
-					 alert(data);
-				 },
-				 error: function ()
-				 {
-					 alert('fail!');
-				 }
-			 });
-		});
+		<?php /** @var $ta Ta_obj */?>
+		<?php /** @var $student Student_obj */?>
+		form.initInfo(
+				'<?php echo $student->USER_NAME;?>',
+				'<?php echo $student->CSRQ;?>',
+				'<?php echo $student->USER_ID;?>',
+				'<?php echo $student->detail->student_bh;?>',
+				JSON.parse('<?php echo json_encode($ta->course_list);?>'));
+		<?php if(!$ta->is_error()):?>
+		form.initHistory(
+				'<?php echo $ta->name_en;?>',
+				'<?php echo $ta->gender;?>',
+				'<?php echo $ta->phone;?>',
+				'<?php echo $ta->email;?>',
+				'<?php echo $ta->skype;?>',
+				'<?php echo $ta->address;?>'
+		);
+		<?endif;?>
+		form.autosave(user_id, 10000);
+		form.reform(user_id);
 	});
 </script>
 
 
-<div class="apply">
-	<form action="/ta/application/Student/saveinfo<?php echo "?courseid=$courseid"; ?>" method="post"
-	      enctype="multipart/form-data">
-		<?php foreach ($list as $item): ?>
-			<fieldset class="text-container">
-				<legend>Personal Information</legend>
-				<ul id="personal-information">
-					<li>Name: <input class="readonly" name="name" value="<?= $item->name ?>" style="font-size:18px;"
-					                 size="12" readonly></li>
-					<li>Course ID: <input class="readonly" name="courseid" value="<?php echo ucfirst($courseid); ?>"
-					                      style="font-size:18px;" size="5" readonly></li>
-					<li>Student ID: <input class="readonly" name="studentid" value="<?= $item->student_id ?>"
-					                       style="font-size:18px;" size="12" readonly></li>
-					<li>Faculty: <input class="readonly" name="faculty" value="<?= $item->faculty ?>"
-					                    style="font-size:18px;" size="15" readonly></li>
-					<li id="gender">
-						Gender:
-						<input type="radio" name="sex" value="male" checked="checked">Male
-						<input type="radio" name="sex" value="female">Female
-					</li>
-					<li>
-						Grade:
-						<select name="Grade" style="font-size:18px;">
-							<option value="freshman" selected>Freshman</option>
-							<option value="sophomore">Sophomore</option>
-							<option value="junior">Junior</option>
-							<option value="senior">Senior</option>
-							<option value="graduate">Graduate</option>
-						</select>
-					</li>
-					<li class="last">Email: <input id="email" name="email" style="font-size:18px;" size="20"
-					                               value="<?php echo set_value('email'); ?>"></li>
-				</ul>
-			</fieldset>
-			
-			<fieldset class="text-container-2">
-				<legend>Self-Introduction</legend>
-				<textarea id="introduction" class="text" name="introduction"
-				          rows="15"><?php echo set_value('introduction'); ?></textarea>
-			</fieldset>
-			
-			<fieldset class="text-container-2">
-				<legend>Comment</legend>
-				<textarea id="comment" class="text" name="comment"
-				          rows="8"><?php echo set_value('comment'); ?></textarea>
-			</fieldset>
-		<?php endforeach; ?>
-		<input type="file" name="upfile" size="20"/>
-		<input id="submit" type="button" align="center" value="Submit" class="submit reprocess">
-		<div id="bg"></div>
-		<div class="box" id="reprocess-box">
-			<p>Are you sure to submit this application?</p>
-			<table width="80%" align="center">
-				<td width="40%"><input name="submit" type="submit" align="center" value="Yes" class="submit"></td>
-				<td width="40%"><input type="button" align="center" value="No" class="submit no"></td>
-			</table>
-		</div>
-	</form>
-</div>
 </body>
 </html>

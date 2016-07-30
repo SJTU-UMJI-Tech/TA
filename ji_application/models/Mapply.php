@@ -4,7 +4,7 @@
 		public function getAll(){
 //			$res = $this->db->query("SELECT * FROM testcourse;");
 			//$res = $this->db->get('testcourse');
-			$sql = 'SELECT * FROM ji_course_info INNER JOIN ji_course_open WHERE ji_course_info.BSID = ji_course_open.BSID ORDER BY ji_course_info.KCDM';
+			$sql = 'SELECT * FROM ji_course_info INNER JOIN kkxx WHERE ji_course_info.BSID = kkxx.BSID ORDER BY ji_course_info.KCDM';
 			$res = $this->db->query($sql);
 			return $res->result();
 		}

@@ -9,11 +9,64 @@
  * @package    ji
  * @author     tc-imba
  * @copyright  2016 umji-sjtu
+ * @uses       Student_detail_obj
  */
 class Student_obj extends My_obj
 {
-	/** -- The vars in the table `ji_students` -- */
+	/** -- The vars in the table `jbxx` -- */
+	/** @var int    varchar(50) JAccount 账号 */
+	public $ACCOUNT;
+	/** @var int    varchar(50) 姓名 */
+	public $USER_NAME;
+	/** @var int    varchar(50) 用户类型 */
+	public $USER_STYLE;
+	/** @var int    varchar(50) 学号 */
+	public $USER_ID;
+	/** @var int    varchar(24) 出生日期 */
+	public $CSRQ;
+	/** @var int    varchar(100)邮箱 */
+	public $EMAIL;
+	/** @var int    char(1)     删除标记 */
+	public $SCBJ;
+	/** @var string timestamp   创建时间 */
+	public $CREATE_TIMESTAMP;
+	/** @var string timestamp   更新时间 */
+	public $UPDATE_TIMESTAMP;
+	
+	/** -- The vars defined for other uses -- */
+	/** @var Student_detail_obj */
+	public $detail;
+	
+	public function __construct($data = array())
+	{
+		parent::__construct($data, 'USER_ID');
+	}
+	
+	/**
+	 * @return $this
+	 */
+	public function set_detail()
+	{
+		$this->CI->load->model('Mstudent');
+		$this->detail = $this->CI->Mstudent->get_student_detail_by_id($this->USER_ID);
+		return $this;
+	}
+}
 
+/**
+ * Class Student_detail_obj
+ *
+ * The secondary information of students
+ *
+ * @category   ji
+ * @package    ji
+ * @author     tc-imba
+ * @copyright  2016 umji-sjtu
+ */
+class Student_detail_obj extends My_obj
+{
+	/** -- The vars in the table `ji_students` -- */
+	
 	/** @var int    varchar(12) 学号 */
 	public $student_id;
 	/** @var string varchar(50) 姓名 */
@@ -38,15 +91,13 @@ class Student_obj extends My_obj
 	public $student_xslbmc;
 	/** @var string varchar(50) 学生类别明细代码 */
 	public $student_xslbmxdm;
-	/** @var string varchar(50) 学生类别明细名称*/
+	/** @var string varchar(50) 学生类别明细名称 */
 	public $student_xslbmxmc;
 	/** @var string varchar(50) 是否在校 */
 	public $student_sfzx;
-
+	
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'student_id');
 	}
-
-
 }

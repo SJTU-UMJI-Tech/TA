@@ -14,16 +14,20 @@ class Apply extends TA_Controller
 		//$this->Mta_site->redirect_login($this->data['type']);
 	}
 	
+	/**
+	 * @param $id
+	 * @return Course_application_obj
+	 */
 	private function validate_course($id)
 	{
 		$course = $this->Mta_application->get_course_by_id($id);
 		if ($course->is_error())
 		{
-			$this->index();
+			$this->redirect();
 		}
 		if ($course->state > 1)
 		{
-			$this->index();
+			$this->redirect();
 		}
 		return $course;
 	}
@@ -31,9 +35,6 @@ class Apply extends TA_Controller
 	public function index()
 	{
 		$data = $this->data;
-		//$this->load->model('Mapply');
-		//$list = $this->Mapply->getAll();
-		//$data['list'] = $list;
 		/**
 		 * @TODO  Data Problem
 		 * We don't have course BSID before the TA application
@@ -58,19 +59,33 @@ class Apply extends TA_Controller
 		}
 	}
 	
+	private function redirect()
+	{
+		redirect('ta/application/student/apply');
+	}
+	
 	public function detail()
 	{
+		$this->load->model('Mstudent');
+		$this->load->model('Mta');
 		$data = $this->data;
 		$id = $this->input->get('id');
-		$course = 0;
+		$_SESSION['userid'] = '515370910207';
 		
+		$data['course'] = $this->validate_course($id);
 		
-		$courseid = $this->input->get('KCDM');
-		$sql = "SELECT * FROM ji_ta_appinfo LIMIT 1;";
-		$res = $this->db->query($sql);
-		$list = $res->result();
-		$data['list'] = $list;
-		$data['courseid'] = $courseid;
+		$data['student'] = $this->Mstudent->get_student_by_id($_SESSION['userid']);
+		if ($data['student']->is_error())
+		{
+			$this->redirect();
+		}
+		$data['student']->set_detail();
+		
+		$data['ta'] = $this->Mta->get_ta_by_id($_SESSION['userid']);
+		if (!$data['ta']->is_error())
+		{
+			$data['ta']->set_course();
+		}
 		$this->load->view('ta/application/student/detail', $data);
 	}
 	
