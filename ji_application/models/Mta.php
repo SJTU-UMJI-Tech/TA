@@ -14,6 +14,8 @@
  */
 class Mta extends CI_Model
 {
+	const TABLE = 'ji_ta_info';
+	
 	/**
 	 * Mta constructor.
 	 */
@@ -32,7 +34,7 @@ class Mta extends CI_Model
 	{
 		if (!is_array($id))
 		{
-			$query = $this->db->get_where('ji_ta_info', array('USER_ID' => $id));
+			$query = $this->db->get_where($this::TABLE, array('USER_ID' => $id));
 			$ta = new Ta_obj($query->row(0));
 			return $ta;
 		}
@@ -40,7 +42,7 @@ class Mta extends CI_Model
 		{
 			return array();
 		}
-		$query = $this->db->select('*')->from('ji_ta_info')->where_in('USER_ID', $id)->get();
+		$query = $this->db->select('*')->from($this::TABLE)->where_in('USER_ID', $id)->get();
 		$ta_list = array();
 		foreach ($query->result() as $row)
 		{
@@ -59,7 +61,7 @@ class Mta extends CI_Model
 	 */
 	public function get_all_ta()
 	{
-		$query = $this->db->get('ji_ta_info');
+		$query = $this->db->get($this::TABLE);
 		$ta_list = array();
 		foreach ($query->result() as $row)
 		{
@@ -107,8 +109,7 @@ class Mta extends CI_Model
 	public function get_ta_feedback($id)
 	{
 		$this->load->library('Feedback_obj');
-		$query =
-			$this->db->select('*')->from('ji_ta_feedback')->where(array('ta_id' => $id))->get();
+		$query = $this->db->select('*')->from('ji_ta_feedback')->where(array('ta_id' => $id))->get();
 		$feedback_list = array();
 		foreach ($query->result() as $result)
 		{
@@ -146,4 +147,30 @@ class Mta extends CI_Model
 		
 		return $report_list;
 	}
+	
+	public function update_ta_info($id, $name_en, $gender, $email, $phone, $skype, $address = '')
+	{
+		$data = array(
+			'name_en' => $name_en,
+			'gender'  => $gender,
+			'email'   => $email,
+			'phone'   => $phone,
+			'skype'   => $skype,
+			'address' => $address
+		);
+		$ta = $this->get_ta_by_id($id);
+		if ($ta->is_error())
+		{
+			$data['USER_ID'] = $id;
+			$this->db->insert($this::TABLE, $data);
+		}
+		else
+		{
+			echo 2;
+			exit();
+			$this->db->update($this::TABLE, $data, array('USER_ID' => $id));
+		}
+	}
+	
+	
 }

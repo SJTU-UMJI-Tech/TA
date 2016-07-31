@@ -91,15 +91,18 @@ class Apply extends TA_Controller
 	
 	public function submit()
 	{
+		//$id = $this->input->post('id');
 		$data = json_decode($this->input->post('json'), true);
 		$required = array(
 			'english-name'      => 'English name',
 			'phone'             => 'Phone',
+			'gender'            => 'Gender',
 			'email'             => 'Email',
 			'skype'             => 'Skype account',
 			'honorcode-access'  => 'Permission of accessing honor code',
 			'honorcode-violate' => 'Honor code violation'
 		);
+		$processed = array();
 		foreach ($data as $content)
 		{
 			if (is_array($content))
@@ -124,6 +127,10 @@ class Apply extends TA_Controller
 				exit();
 			}
 		}
+		$this->load->model('Mta');
+		$this->Mta->update_ta_info($_SESSION['userid'], $data['basic']['english-name'], $data['basic']['gender'],
+		                           $data['basic']['email'], $data['basic']['phone'], $data['basic']['skype'],
+		                           isset($data['basic']['address']) ? $data['basic']['address'] : NULL);
 		echo 'success';
 		exit();
 	}

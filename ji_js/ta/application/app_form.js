@@ -83,16 +83,16 @@
 			}
 		},
 		
-		initHistory: function (name_en, sex, phone, email, skype, address)
+		initHistory: function (name_en, gender, phone, email, skype, address)
 		{
 			this.$basic.find("input[name='english-name']").val(name_en);
 			this.$basic.find("input[name='phone']").val(phone);
 			this.$basic.find("input[name='email']").val(email);
 			this.$basic.find("input[name='skype']").val(skype);
 			this.$basic.find("input[name='address']").val(address);
-			this.$basic.find("input[name='sex']").each(function ()
+			this.$basic.find("input[name='gender']").each(function ()
 			{
-				if ($(this).val() == 'male' && sex == 'M' || $(this).val() == 'female' && sex == 'F')
+				if ($(this).val() == 'male' && gender == 'M' || $(this).val() == 'female' && gender == 'F')
 				{
 					$(this).attr('checked', 'checked');
 				}

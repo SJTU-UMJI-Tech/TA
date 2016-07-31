@@ -43,13 +43,13 @@
 								</div>
 							</div>
 							<div class="row">
-								<h5 class="col-sm-5">*SEX</h5>
+								<h5 class="col-sm-5">*Gender</h5>
 								<div class="row col-sm-7">
 									<div class="col-md-6">
-										<input type="radio" name="sex" value="male" title="">Male
+										<input type="radio" name="gender" value="male" title="">Male
 									</div>
 									<div class="col-md-6">
-										<input type="radio" name="sex" value="female" title="">Female
+										<input type="radio" name="gender" value="female" title="">Female
 									</div>
 								</div>
 							</div>
@@ -108,7 +108,7 @@
 				<div class="row">
 					<h5 class="col-sm-3">*STUD. ID</h5>
 					<div class="col-sm-9">
-						<input class="form-control" name="student-id" type="text" title="lust" disabled="disabled">
+						<input class="form-control" name="student-id" type="text" title="list" disabled="disabled">
 					</div>
 				</div>
 				<div class="row">
@@ -121,10 +121,10 @@
 					<h5 class="col-sm-3">*Honor Code Violation Record</h5>
 					<div class="row col-sm-9">
 						<div class="col-md-6">
-							<input type="radio" name="honorcode-access" value="yes" title="">Yes
+							<input type="radio" name="honorcode-violate" value="yes" title="">Yes
 						</div>
 						<div class="col-md-6">
-							<input type="radio" name="honorcode-access" value="no" title="">No
+							<input type="radio" name="honorcode-violate" value="no" title="">No
 						</div>
 					</div>
 				</div>
@@ -254,6 +254,8 @@
 </div>
 
 
+<button id="form-submit" class="btn btn-primary">Submit</button>
+
 <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="/ji_js/ta/application/app_form.js"></script>
 <script type="text/javascript">
@@ -282,6 +284,28 @@
 		<?endif;?>
 		form.autosave(user_id, 10000);
 		form.reform(user_id);
+		
+		$("#form-submit").click(function ()
+		{
+			$.ajax
+			 ({
+				 type: 'POST',
+				 url: '/ta/application/student/apply/submit',
+				 data: {
+					 id: user_id,
+					 json: JSON.stringify(form.serialize())
+				 },
+				 dataType: 'text',
+				 success: function (data)
+				 {
+					 alert(data);
+				 },
+				 error: function ()
+				 {
+					 alert('fail!');
+				 }
+			 });
+		});
 	});
 </script>
 
