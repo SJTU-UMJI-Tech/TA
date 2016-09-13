@@ -64,7 +64,7 @@
 					<div class="row">
 						<h5 class="col-sm-3">*EMAIL</h5>
 						<div class="col-sm-9">
-							<input class="form-control" name="email" type="text" title="">
+							<input class="form-control" name="email" type="text" title="list">
 						</div>
 					</div>
 					<div class="row">
@@ -246,6 +246,11 @@
 				<div class="form-info">
 				</div>
 			</div>
+			
+			<div class="form-list form-self-introduction">
+				<h3>*SELF INTRODUCTION</h3>
+				<textarea name="self-introduction" rows="15" style="resize:none; width:100%"></textarea>
+			</div>
 		
 		</div>
 	
@@ -254,7 +259,8 @@
 </div>
 
 
-<button id="form-submit" class="btn btn-primary">Submit</button>
+<button id="form-save" class="btn btn-primary">Save</button>
+<button id="form-submit" class="btn btn-primary">Save and submit</button>
 
 <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="/ji_js/ta/application/app_form.js"></script>
@@ -263,12 +269,14 @@
 	{
 		var form = $('#form').AppForm();
 		var user_id = '<?php echo $_SESSION['userid'];?>';
+		var course_id = '<?php echo $course->id;?>';
 		
 		<?php /** @var $ta Ta_obj */?>
 		<?php /** @var $student Student_obj */?>
 		form.initInfo(
 				'<?php echo $student->USER_NAME;?>',
 				'<?php echo $student->CSRQ;?>',
+				'<?php echo $student->ACCOUNT;?>',
 				'<?php echo $student->USER_ID;?>',
 				'<?php echo $student->detail->student_bh;?>',
 				JSON.parse('<?php echo json_encode($ta->course_list);?>'));
@@ -277,23 +285,42 @@
 				'<?php echo $ta->name_en;?>',
 				'<?php echo $ta->gender;?>',
 				'<?php echo $ta->phone;?>',
-				'<?php echo $ta->email;?>',
 				'<?php echo $ta->skype;?>',
 				'<?php echo $ta->address;?>'
 		);
 		<?endif;?>
-		form.autosave(user_id, 10000);
-		form.reform(user_id);
 		
-		$("#form-submit").click(function ()
+		var data, flag = true;
+		
+		<?php /** @var $apply Application_record_obj */?>
+		<?php if(!$apply->is_error()):?>
+		<?php if($apply->state > 0):?>
+		flag = false;
+		data = JSON.parse('<?php echo $apply->apply_data;?>');
+		<?php endif;?>
+		<?php endif;?>
+		
+		if (flag)
+		{
+			form.autosave(user_id, 10000);
+			data = form.loadCookie(user_id);
+		}
+		form.reform(data);
+		if (!flag)
+		{
+			form.lock();
+		}
+		
+		var submitData = function (mode)
 		{
 			$.ajax
 			 ({
 				 type: 'POST',
 				 url: '/ta/application/student/apply/submit',
 				 data: {
-					 id: user_id,
-					 json: JSON.stringify(form.serialize())
+					 course_id: course_id,
+					 json: JSON.stringify(form.serialize()),
+					 mode: mode
 				 },
 				 dataType: 'text',
 				 success: function (data)
@@ -305,7 +332,18 @@
 					 alert('fail!');
 				 }
 			 });
+		};
+		
+		$("#form-save").click(function ()
+		{
+			submitData('save');
 		});
+		
+		$("#form-submit").click(function ()
+		{
+			submitData('submit');
+		});
+		
 	});
 </script>
 

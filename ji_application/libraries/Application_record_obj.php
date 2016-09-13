@@ -13,6 +13,8 @@ class Application_record_obj extends My_obj
 	/** @var int    int(4) */
 	public $state;
 	/** @var string text */
+	public $apply_data;
+	/** @var string text */
 	public $addition;
 	/** @var string timestamp   创建时间 */
 	public $CREATE_TIMESTAMP;
@@ -21,15 +23,20 @@ class Application_record_obj extends My_obj
 	
 	
 	/** -- The vars defined for other uses -- */
+	/** @var Course_application_obj */
 	public $course;
 	
 	/**
-	 * Course_application_obj constructor.
+	 * Application_record_obj constructor.
 	 * @param array $data
 	 */
 	public function __construct($data = array())
 	{
 		parent::__construct($data, 'id');
+		if (!$this->is_error())
+		{
+			$this->apply_data = base64_decode($this->apply_data);
+		}
 	}
 	
 	/**

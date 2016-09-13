@@ -50,6 +50,8 @@
 		this.$refInfo = this.$ref.find(".form-info");
 		this.$refBtnAdd = this.$ref.find(".btn-add");
 		
+		this.$self = this.$container.find(".form-self-introduction");
+		
 		this.init();
 	}
 	
@@ -66,10 +68,11 @@
 			this.addRef();
 		},
 		
-		initInfo: function (name, birthday, id, class_id, course)
+		initInfo: function (name, birthday, email, id, class_id, course)
 		{
 			this.$basic.find("input[name='chinese-name']").val(name);
 			this.$basic.find("input[name='birth-date']").val(birthday);
+			this.$basic.find("input[name='email']").val(email + '@sjtu.edu.cn');
 			this.$edu.find("input[name='student-id']").val(id);
 			this.$edu.find("input[name='class-id']").val(class_id);
 			for (var index in course)
@@ -83,11 +86,10 @@
 			}
 		},
 		
-		initHistory: function (name_en, gender, phone, email, skype, address)
+		initHistory: function (name_en, gender, phone, skype, address)
 		{
 			this.$basic.find("input[name='english-name']").val(name_en);
 			this.$basic.find("input[name='phone']").val(phone);
-			this.$basic.find("input[name='email']").val(email);
 			this.$basic.find("input[name='skype']").val(skype);
 			this.$basic.find("input[name='address']").val(address);
 			this.$basic.find("input[name='gender']").each(function ()
@@ -273,6 +275,7 @@
 				com: this.serializeText(this.$com),
 				awd: this.serializeText(this.$awd),
 				ref: this.serializeList(this.$refInfo),
+				self: this.serializeText(this.$self),
 				date: (new Date()).getTime()
 			};
 			//console.log(data);
@@ -314,9 +317,13 @@
 			return data;
 		},
 		
-		reform: function (id)
+		lock: function ()
 		{
-			var data = this.loadCookie(id);
+			this.$container.find("input,textarea,button").attr('disabled', 'disabled');
+		},
+		
+		reform: function (data)
+		{
 			this.reformPart(this.$basic, data.basic);
 			this.reformPart(this.$edu, data.edu);
 			this.reformInfo(this.$eduInfo, data.edu.info);
@@ -327,6 +334,7 @@
 			this.reformPart(this.$com, data.com);
 			this.reformPart(this.$awd, data.awd);
 			this.reformInfo(this.$refInfo, data.ref.info);
+			this.reformPart(this.$self, data.self);
 			var date = new Date(data.date + 3600000 * 8);
 			this.$autosave.html('<h4>Loaded saved data at ' + date.toUTCString() + '</h4>');
 		},
@@ -338,7 +346,7 @@
 			{
 				if (data[property] != '')
 				{
-					$part.find("[name='" + property + "']").each(function ()
+					$part.find("[name='" + property + "'][title!='list']").each(function ()
 					{
 						if ($(this).attr('type') == 'radio')
 						{
@@ -390,7 +398,7 @@
 		loadCookie: function (id)
 		{
 			var data = $.cookie('form-backup-' + id);
-			return data ? JSON.parse(data) : {};
+			return data ? JSON.parse(data) : 0;
 		},
 		
 		autosave: function (id, time)

@@ -86,13 +86,36 @@ class Apply extends TA_Controller
 		{
 			$data['ta']->set_course();
 		}
+		
+		$data['apply'] = $this->Mta_application->get_student_apply($_SESSION['userid'], $id);
+		
 		$this->load->view('ta/application/student/detail', $data);
 	}
 	
 	public function submit()
 	{
-		//$id = $this->input->post('id');
-		$data = json_decode($this->input->post('json'), true);
+		$course_id = $this->input->post('course_id');
+		/** Examine the course */
+		$course = $this->Mta_application->get_course_by_id($course_id);
+		if ($course->is_error())
+		{
+			echo 'Course unfound!';
+			exit();
+		}
+		/** Examine and set the state of application*/
+		$apply = $this->Mta_application->get_student_apply($_SESSION['userid'], $course_id);
+		if (!$apply->is_error())
+		{
+			if ($apply->state != 0)
+			{
+				echo 'You can\'t edit it anymore!';
+				exit();
+			}
+		}
+		$state = $this->input->post('mode') == 'submit';
+		/** Examine the necessary information */
+		$apply_data = $this->input->post('json');
+		$data = json_decode($apply_data, true);
 		$required = array(
 			'english-name'      => 'English name',
 			'phone'             => 'Phone',
@@ -127,6 +150,17 @@ class Apply extends TA_Controller
 				exit();
 			}
 		}
+		/** Update the application */
+		if ($apply->is_error())
+		{
+			$this->Mta_application->create_student_apply($_SESSION['userid'], $course_id, $apply_data, $state);
+		}
+		else
+		{
+			$this->Mta_application->update_student_apply($apply->id, $apply_data, $state);
+		}
+		
+		/** Update the information of TA */
 		$this->load->model('Mta');
 		$this->Mta->update_ta_info($_SESSION['userid'], $data['basic']['english-name'], $data['basic']['gender'],
 		                           $data['basic']['email'], $data['basic']['phone'], $data['basic']['skype'],

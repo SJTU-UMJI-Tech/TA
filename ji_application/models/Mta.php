@@ -152,7 +152,7 @@ class Mta extends CI_Model
 	{
 		$data = array(
 			'name_en' => $name_en,
-			'gender'  => $gender,
+			'gender'  => $gender == 'male' ? 'M' : 'F',
 			'email'   => $email,
 			'phone'   => $phone,
 			'skype'   => $skype,
@@ -166,8 +166,8 @@ class Mta extends CI_Model
 		}
 		else
 		{
-			echo 2;
-			exit();
+			//print_r($data);
+			//exit();
 			$this->db->update($this::TABLE, $data, array('USER_ID' => $id));
 		}
 	}
