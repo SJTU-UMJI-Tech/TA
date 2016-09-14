@@ -46,6 +46,7 @@ class Apply extends TA_Controller
 		 * BSID can be added after it is given by SJTU
 		 */
 		$data['open_list'] = $this->Mta_application->get_open_list();
+		//print_r($data['open_list']);
 		$data['id'] = $this->input->get('id');
 		if ($data['id'] != '')
 		{

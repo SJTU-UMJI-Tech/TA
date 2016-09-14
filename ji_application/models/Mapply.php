@@ -2,6 +2,7 @@
 	class Mapply extends CI_Model{
 		
 		public function getAll(){
+			//debug_print_backtrace();
 //			$res = $this->db->query("SELECT * FROM testcourse;");
 			//$res = $this->db->get('testcourse');
 			$sql = 'SELECT * FROM ji_course_info INNER JOIN kkxx WHERE ji_course_info.BSID = kkxx.BSID ORDER BY ji_course_info.KCDM';

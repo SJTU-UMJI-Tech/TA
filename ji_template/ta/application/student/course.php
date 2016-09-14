@@ -2,19 +2,7 @@
 
 <link href="/ji_style/ta/application/student/stu_app_courseinfo.css" rel="stylesheet" type="text/css" media="all"/>
 <script type="text/javascript" src="/ji_js/ta/application/student/stu_app_courseinfo.js"></script>
-<script type="text/javascript">
-	$(document).ready(function ()
-	{
-		var kcdm = "<?=$KCDM?>";
-		$('.choose-course td').each(function ()
-		{
-			if ($(this).text().indexOf(kcdm) != -1)
-			{
-				$(this).trigger("click");
-			}
-		});
-	});
-</script>
+
 
 <div class="list">
 	<table class="all-content" width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
@@ -121,12 +109,27 @@
 <div class="hidden" id="class_data">
 	<?php foreach ($open_list as $class_item): ?>
 		<? /** @var $class_item Course_application_obj */ ?>
-		<p id="<?= $class_item->id ?>" status="<?= $class_item->state ?>"
+		<p id="<?= $class_item->id ?>" status="<?= $class_item->state==0?'open':'close' ?>"
 		   KCDM="<?= $class_item->KCDM ?>" KCZWMC="<?= $class_item->KCZWMC ?>" XM="<?= $class_item->XM ?>"
 		   XQ="<?= $class_item->XQ_JI ?>" XN="<?= $class_item->XN ?>" KCJJ="<?= $class_item->KCJJ ?>"
 		   maxta="<?= $class_item->num_plan ?>" curta="<?= $class_item->num_apply ?>" salary="<?= $class_item->salary ?>"
 		   email="" BSID=""></p>
 	<?php endforeach; ?>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		var kcdm = $("#class_data").children("p").first().attr('KCDM');
+		$('.choose-course td').each(function ()
+		{
+			if ($(this).text().indexOf(kcdm) != -1)
+			{
+				$(this).trigger("click");
+			}
+		});
+	});
+</script>
+
 </body>
 </html>
