@@ -24,8 +24,6 @@
 
 <body>
 
-<!---->
-ssss
 
 <!--Button for turning to the top-->
 <div id="To_Top">
