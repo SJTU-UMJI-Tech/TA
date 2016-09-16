@@ -13,8 +13,8 @@
  */
 class Course_obj extends My_obj
 {
-	/** -- The vars in the table `ji_course_open` -- */
-
+	/** -- The vars in the table `kkxx` -- */
+	
 	/** @var int    varchar(20) 用户 ID */
 	public $USER_ID;
 	/** @var int    varchar(100)课程编号 */
@@ -41,9 +41,11 @@ class Course_obj extends My_obj
 	public $CREATE_TIMESTAMP;
 	/** @var string timestamp   更新时间 */
 	public $UPDATE_TIMESTAMP;
-
-
+	
+	
 	/** -- The vars defined for other uses -- */
+	/** @var Teacher_obj */
+	public $teacher;
 	/** @var array */
 	public $ta_list;
 	/** @var array */
@@ -75,6 +77,17 @@ class Course_obj extends My_obj
 				$this->XQ_JI = $this->XQ == 1 ? 'FA' : 'SU';
 			}
 		}
+	}
+	
+	/**
+	 * Set the teacher of the course
+	 * @return $this
+	 */
+	public function set_teacher()
+	{
+		$this->CI->load->model('Mteacher');
+		$this->teacher = $this->CI->Mteacher->get_teacher_by_id($this->USER_ID);
+		return $this;
 	}
 	
 	/**

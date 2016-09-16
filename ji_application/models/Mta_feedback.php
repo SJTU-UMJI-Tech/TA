@@ -280,8 +280,6 @@ class Mta_feedback extends CI_Model
 				                     Feedback_obj::STATE_TEACHER | Feedback_obj::STATE_PROCESSED);
 				break;
 			}
-			
-			$this->load->model('Mta_mail');
 			$feedback->set_replys(Feedback_obj::STATE_MANAGE);
 			if ($feedback->is_student())
 			{
@@ -297,9 +295,12 @@ class Mta_feedback extends CI_Model
 					}
 				}
 				/** Mail the teacher */
+				$this->load->model('Mta_mail');
 				$this->load->model('Mcourse');
-				$teacher = $this->Mcourse->get_course_teacher($feedback->BSID);
+				$course =$this->Mcourse->get_course_by_id($id);
+				$course->set_teacher();
 				/** @TODO The format of the email */
+				
 			}
 			else
 			{

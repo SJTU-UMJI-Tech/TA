@@ -39,7 +39,7 @@
 		public function getcourseinfo($xq,$xn){
 			$sql='SELECT * 
 FROM ji_course_info
-RIGHT JOIN ji_course_open ON ji_course_info.BSID = ji_course_open.BSID WHERE xq= ? and xn = ? ';
+RIGHT JOIN kkxx ON ji_course_info.BSID = kkxx.BSID WHERE xq= ? and xn = ? ';
 			$res=$this->db->query($sql, array($xq,$xn));
 			return $res->result();
 		}
@@ -48,36 +48,36 @@ RIGHT JOIN ji_course_open ON ji_course_info.BSID = ji_course_open.BSID WHERE xq=
 			if ($cid == null){
 				if ($xq == 0) {
 					if ($xn == 0) {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID';
 						$res = $this->db->query($sql);
 					} else {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE xn = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE xn = ?';
 						$res = $this->db->query($sql, array($xn));
 					}
 				} else {
 					if ($xn == 0) {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE xq = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE xq = ?';
 						$res = $this->db->query($sql, array($xq));
 					} else {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE xq = ? and xn = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE xq = ? and xn = ?';
 						$res = $this->db->query($sql, array($xq, $xn));
 					}
 				}
 			} else {
 				if ($xq == 0) {
 					if ($xn == 0) {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE ji_course_open.KCDM = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE kkxx.KCDM = ?';
 						$res = $this->db->query($sql, array($cid));
 					} else {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE xn = ? and ji_course_open.KCDM = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE xn = ? and kkxx.KCDM = ?';
 						$res = $this->db->query($sql, array($xn, $cid));
 					}
 				} else {
 					if ($xn == 0) {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE xq = ? and ji_course_open.KCDM = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE xq = ? and kkxx.KCDM = ?';
 						$res = $this->db->query($sql, array($xq, $cid));
 					} else {
-						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN ji_course_open on ji_course_info.BSID = ji_course_open.BSID WHERE xq = ? and xn = ? and ji_course_open.KCDM = ?';
+						$sql = 'SELECT * FROM ji_course_info RIGHT JOIN kkxx on ji_course_info.BSID = kkxx.BSID WHERE xq = ? and xn = ? and kkxx.KCDM = ?';
 						$res = $this->db->query($sql, array($xq, $xn, $cid));
 					}
 				}

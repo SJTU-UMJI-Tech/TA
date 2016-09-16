@@ -52,7 +52,7 @@ class Mta_search extends CI_Model
 	public function search_course($keys)
 	{
 		$this->load->library('Course_obj');
-		$this->db->select('*')->from('ji_course_open');
+		$this->db->select('*')->from('kkxx');
 		foreach ($keys as $key)
 		{
 			$this->db->group_start()->or_like('XN', $key)->or_like('XQ', $key)

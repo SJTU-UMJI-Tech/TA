@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 * ѧ�������з���
 */
 
-class Student extends TA_Controller
+class SStudent extends TA_Controller
 {
 	public function __construct()
 	{

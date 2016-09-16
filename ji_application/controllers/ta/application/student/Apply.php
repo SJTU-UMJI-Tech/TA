@@ -14,16 +14,20 @@ class Apply extends TA_Controller
 		//$this->Mta_site->redirect_login($this->data['type']);
 	}
 	
+	/**
+	 * @param $id
+	 * @return Course_application_obj
+	 */
 	private function validate_course($id)
 	{
 		$course = $this->Mta_application->get_course_by_id($id);
 		if ($course->is_error())
 		{
-			$this->index();
+			$this->redirect();
 		}
 		if ($course->state > 1)
 		{
-			$this->index();
+			$this->redirect();
 		}
 		return $course;
 	}
@@ -31,9 +35,6 @@ class Apply extends TA_Controller
 	public function index()
 	{
 		$data = $this->data;
-		//$this->load->model('Mapply');
-		//$list = $this->Mapply->getAll();
-		//$data['list'] = $list;
 		/**
 		 * @TODO  Data Problem
 		 * We don't have course BSID before the TA application
@@ -45,6 +46,7 @@ class Apply extends TA_Controller
 		 * BSID can be added after it is given by SJTU
 		 */
 		$data['open_list'] = $this->Mta_application->get_open_list();
+		//print_r($data['open_list']);
 		$data['id'] = $this->input->get('id');
 		if ($data['id'] != '')
 		{
@@ -58,33 +60,73 @@ class Apply extends TA_Controller
 		}
 	}
 	
+	private function redirect()
+	{
+		redirect('ta/application/student/apply');
+	}
+	
 	public function detail()
 	{
+		$this->load->model('Mstudent');
+		$this->load->model('Mta');
 		$data = $this->data;
 		$id = $this->input->get('id');
-		$course = 0;
+		$_SESSION['userid'] = '515370910207';
 		
+		$data['course'] = $this->validate_course($id);
 		
-		$courseid = $this->input->get('KCDM');
-		$sql = "SELECT * FROM ji_ta_appinfo LIMIT 1;";
-		$res = $this->db->query($sql);
-		$list = $res->result();
-		$data['list'] = $list;
-		$data['courseid'] = $courseid;
+		$data['student'] = $this->Mstudent->get_student_by_id($_SESSION['userid']);
+		if ($data['student']->is_error())
+		{
+			$this->redirect();
+		}
+		$data['student']->set_detail();
+		
+		$data['ta'] = $this->Mta->get_ta_by_id($_SESSION['userid']);
+		if (!$data['ta']->is_error())
+		{
+			$data['ta']->set_course();
+		}
+		
+		$data['apply'] = $this->Mta_application->get_student_apply($_SESSION['userid'], $id);
+		
 		$this->load->view('ta/application/student/detail', $data);
 	}
 	
 	public function submit()
 	{
-		$data = json_decode($this->input->post('json'), true);
+		$course_id = $this->input->post('course_id');
+		/** Examine the course */
+		$course = $this->Mta_application->get_course_by_id($course_id);
+		if ($course->is_error())
+		{
+			echo 'Course unfound!';
+			exit();
+		}
+		/** Examine and set the state of application*/
+		$apply = $this->Mta_application->get_student_apply($_SESSION['userid'], $course_id);
+		if (!$apply->is_error())
+		{
+			if ($apply->state != 0)
+			{
+				echo 'You can\'t edit it anymore!';
+				exit();
+			}
+		}
+		$state = $this->input->post('mode') == 'submit';
+		/** Examine the necessary information */
+		$apply_data = $this->input->post('json');
+		$data = json_decode($apply_data, true);
 		$required = array(
 			'english-name'      => 'English name',
 			'phone'             => 'Phone',
+			'gender'            => 'Gender',
 			'email'             => 'Email',
 			'skype'             => 'Skype account',
 			'honorcode-access'  => 'Permission of accessing honor code',
 			'honorcode-violate' => 'Honor code violation'
 		);
+		$processed = array();
 		foreach ($data as $content)
 		{
 			if (is_array($content))
@@ -109,6 +151,21 @@ class Apply extends TA_Controller
 				exit();
 			}
 		}
+		/** Update the application */
+		if ($apply->is_error())
+		{
+			$this->Mta_application->create_student_apply($_SESSION['userid'], $course_id, $apply_data, $state);
+		}
+		else
+		{
+			$this->Mta_application->update_student_apply($apply->id, $apply_data, $state);
+		}
+		
+		/** Update the information of TA */
+		$this->load->model('Mta');
+		$this->Mta->update_ta_info($_SESSION['userid'], $data['basic']['english-name'], $data['basic']['gender'],
+		                           $data['basic']['email'], $data['basic']['phone'], $data['basic']['skype'],
+		                           isset($data['basic']['address']) ? $data['basic']['address'] : NULL);
 		echo 'success';
 		exit();
 	}

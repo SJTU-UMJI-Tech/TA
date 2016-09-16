@@ -29,8 +29,20 @@ class Mstudent extends CI_Model
 	 */
 	public function get_student_by_id($id)
 	{
-		$query = $this->db->get_where('ji_students', array('student_id' => $id));
+		$query = $this->db->get_where('jbxx', array('USER_ID' => $id));
 		$student = new Student_obj($query->row(0));
+		return $student;
+	}
+	
+	/**
+	 * 使用 ID 获取学生 detail
+	 * @param int $id
+	 * @return Student_detail_obj
+	 */
+	public function get_student_detail_by_id($id)
+	{
+		$query = $this->db->get_where('ji_students', array('student_id' => $id));
+		$student = new Student_detail_obj($query->row(0));
 		return $student;
 	}
 	
@@ -41,7 +53,7 @@ class Mstudent extends CI_Model
 	 */
 	public function get_all_course($id)
 	{
-		$query = $this->db->select('BSID')->from('ji_course_select')
+		$query = $this->db->select('BSID')->from('xkxx')
 		                  ->where(array('USER_ID' => $id, 'SCBJ' => 'N'))->get();
 		return $query->result();
 	}

@@ -84,7 +84,7 @@
 			<div id="student-list" class="student_list row">
 				<?php foreach ($course->student_list as $student): ?>
 					<?php /** @var $student Student_obj */ ?>
-					<?php echo '<h5 class="col-sm-2">' . $student->student_name . '</h5>'; ?>
+					<?php echo '<h5 class="col-sm-2">' . $student->USER_NAME . '</h5>'; ?>
 				<?php endforeach; ?>
 			</div>
 		
